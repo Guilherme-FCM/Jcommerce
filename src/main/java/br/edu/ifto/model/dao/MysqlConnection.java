@@ -22,9 +22,9 @@ public class MysqlConnection implements JDBC {
             //carregar o driver de conexão
             Class.forName("com.mysql.cj.jdbc.Driver");
             //parâmetros
-            String url = "jdbc:mysql://localhost:3306/Products";
-            String user = "Guilherme";
-            String password = "guifcm12";
+            String url = "jdbc:mysql://localhost:3306/jcommerce";
+            String user = "root";
+            String password = "";
             //retorna a conexão com o banco de dados
             return DriverManager.getConnection(url, user, password);
 
