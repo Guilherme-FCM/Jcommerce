@@ -67,4 +67,10 @@ public class ProductController {
         model.addAttribute("product", dao.listProducts(id));
         return new ModelAndView("/products/form", model);
     }
+
+    @PostMapping("/update")
+    public ModelAndView update(Product product) {
+        dao.update(product);
+        return new ModelAndView("redirect:/products/list");
+    }
 }
