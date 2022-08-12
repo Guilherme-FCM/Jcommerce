@@ -55,4 +55,16 @@ public class ProductController {
         dao.remove(id);
         return new ModelAndView("redirect:/products/list");
     }
+
+    /**
+     * @param id
+     * @param model
+     * @return
+     * @PathVariable é utilizado quando o valor da variável é passada diretamente na URL
+     */
+    @GetMapping("/edit/{id}")
+    public ModelAndView edit(@PathVariable("id") Long id, ModelMap model) {
+        model.addAttribute("product", dao.listProducts(id));
+        return new ModelAndView("/products/form", model);
+    }
 }
