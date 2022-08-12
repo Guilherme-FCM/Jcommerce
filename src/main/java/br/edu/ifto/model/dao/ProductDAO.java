@@ -4,6 +4,7 @@
  */
 package br.edu.ifto.model.dao;
 
+import br.edu.ifto.model.jdbc.MyConnection;
 import br.edu.ifto.model.entity.Product;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
