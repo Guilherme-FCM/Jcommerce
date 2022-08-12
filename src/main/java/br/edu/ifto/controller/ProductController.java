@@ -28,6 +28,11 @@ public class ProductController {
         dao = new ProductDAO();
     }
     
+    @GetMapping()
+    public String listProducts(){
+        return "/products/home";
+    }
+    
     @GetMapping("/list")
     public ModelAndView listProducts(ModelMap model){
         model.addAttribute("products", dao.listProducts());
