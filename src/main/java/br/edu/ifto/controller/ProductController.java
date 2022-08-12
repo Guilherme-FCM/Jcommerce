@@ -37,4 +37,10 @@ public class ProductController {
     public String form(Product product){
         return "/products/form";
     }
+    
+    @PostMapping("/save")
+    public ModelAndView save(Product product){
+        dao.save(product);
+        return new ModelAndView("redirect:/products/list");
+    }
 }
