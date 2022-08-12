@@ -82,4 +82,25 @@ public class ProductDAO {
         }
         return false;
     }
+    
+    public Product listProducts(Long id) {
+        try {
+            //comando sql
+            String sql = "select * from products where id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            //referênciar o parâmetro do método para a ?
+            ps.setLong(1, id);
+            //ResultSet, representa o resultado do comando SQL
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Product p = new Product();
+                p.setId(rs.getLong("id"));
+                p.setName(rs.getString("name"));
+                return p;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }
