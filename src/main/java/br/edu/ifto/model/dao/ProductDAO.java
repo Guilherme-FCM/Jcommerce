@@ -82,6 +82,24 @@ public class ProductDAO {
         }
         return false;
     }
+
+    public boolean update(Product product) {
+        try {
+            //comando sql
+            String sql = "update products set name=? where id=?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            //referênciar o parâmetro do método para a ?
+            ps.setString(1, product.getName());
+            ps.setLong(2, product.getId());
+
+            if (ps.executeUpdate()==1)
+                return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
     
     public Product listProducts(Long id) {
         try {
