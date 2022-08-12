@@ -28,22 +28,19 @@ public class ProductDAO {
 
     public List<Product> listProducts() {
         try {
-            //comando sql
             String sql = "select * from products";
             PreparedStatement ps = connection.prepareStatement(sql);
-            //ResultSet, representa o resultado do comando SQL
             ResultSet rs = ps.executeQuery();
-            //cria uma lista de pessoas para retornar
+
             List<Product> pessoas = new ArrayList();
-            //laço para buscar todas as pessoas do banco
             while (rs.next()) {
                 Product p = new Product();
                 p.setId(rs.getLong("id"));
-                p.setName(rs.getString("name"));
-                //add pessoa na lista
+                p.setDescription(rs.getString("description"));
+                p.setPrice(rs.getDouble("price"));
+
                 pessoas.add(p);
             }
-            //retorna a lista de pessoas
             return pessoas;
         } catch (SQLException ex) {
             Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -53,14 +50,13 @@ public class ProductDAO {
     
     public boolean remove(Long id) {
         try {
-            //comando sql
             String sql = "delete from products where id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
-            //referênciar o parâmetro do método para a ?
+            
             ps.setLong(1, id);
-            if(ps.executeUpdate()==1)
-                return true;
-
+            
+            if(ps.executeUpdate()==1) return true;
+            
         } catch (SQLException ex) {
             Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -69,14 +65,13 @@ public class ProductDAO {
 
     public boolean save(Product product) {
         try {
-            //comando sql
-            String sql = "insert into products (name) values (?)";
+            String sql = "insert into products (description, price) values (?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql);
-            //referênciar o parâmetro do método para a ?
-            ps.setString(1, product.getName());
+            
+            ps.setString(1, product.getDescription());
+            ps.setDouble(2, product.getPrice());
 
-            if(ps.executeUpdate()==1)
-                return true;
+            if(ps.executeUpdate()==1) return true;
 
         } catch (SQLException ex) {
             Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -86,15 +81,14 @@ public class ProductDAO {
 
     public boolean update(Product product) {
         try {
-            //comando sql
-            String sql = "update products set name=? where id=?";
+            String sql = "update products set description=?, price=? where id=?";
             PreparedStatement ps = connection.prepareStatement(sql);
-            //referênciar o parâmetro do método para a ?
-            ps.setString(1, product.getName());
-            ps.setLong(2, product.getId());
 
-            if (ps.executeUpdate()==1)
-                return true;
+            ps.setString(1, product.getDescription());
+            ps.setDouble(2, product.getPrice());
+            ps.setLong(3, product.getId());
+
+            if (ps.executeUpdate()==1) return true;
 
         } catch (SQLException ex) {
             Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -104,17 +98,16 @@ public class ProductDAO {
     
     public Product listProducts(Long id) {
         try {
-            //comando sql
             String sql = "select * from products where id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
-            //referênciar o parâmetro do método para a ?
+            
             ps.setLong(1, id);
-            //ResultSet, representa o resultado do comando SQL
+
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 Product p = new Product();
                 p.setId(rs.getLong("id"));
-                p.setName(rs.getString("name"));
+                p.setDescription(rs.getString("description"));
                 return p;
             }
         } catch (SQLException ex) {
