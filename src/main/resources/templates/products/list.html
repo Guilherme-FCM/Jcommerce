@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <table class="table" border="1">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Descrição</th>
+                    <th>Editar</th>
+                    <th>Excluir</th>
+                </tr>
+            </thead>
+            <tr th:each="p : ${products}">
+                <td th:text="${p.id}"> </td>
+                <td th:text="${p.name}"> </td>
+                <td> <a th:href="@{/products/edit/{id}(id=${p.id})}">Editar</a> </td>
+                <td> <a onclick="return window.confirm('Tem certeza que deseja excluir este registro?')"  th:href="@{/products/remove/{id}(id=${p.id})}">Excluir</a> </td>
+            </tr>
+        </table>
+        <button><a href="/products/form">Criar</a></button>
+    </body>
+</html>
