@@ -49,4 +49,21 @@ public class ProductDAO {
         }
         return null;
     }
+
+    public boolean save(Product product) {
+        try {
+            //comando sql
+            String sql = "insert into products (name) values (?)";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            //referênciar o parâmetro do método para a ?
+            ps.setString(1, product.getName());
+
+            if(ps.executeUpdate()==1)
+                return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 }
