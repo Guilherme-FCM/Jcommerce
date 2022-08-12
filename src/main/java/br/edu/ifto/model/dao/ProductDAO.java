@@ -49,6 +49,22 @@ public class ProductDAO {
         }
         return null;
     }
+    
+    public boolean remove(Long id) {
+        try {
+            //comando sql
+            String sql = "delete from products where id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            //referênciar o parâmetro do método para a ?
+            ps.setLong(1, id);
+            if(ps.executeUpdate()==1)
+                return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 
     public boolean save(Product product) {
         try {
