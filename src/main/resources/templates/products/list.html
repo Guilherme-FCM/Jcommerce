@@ -11,13 +11,15 @@
                 <tr>
                     <th>Id</th>
                     <th>Descrição</th>
+                    <th>Preço</th>
                     <th>Editar</th>
                     <th>Excluir</th>
                 </tr>
             </thead>
             <tr th:each="p : ${products}">
                 <td th:text="${p.id}"> </td>
-                <td th:text="${p.name}"> </td>
+                <td th:text="${p.description}"> </td>
+                <td th:text="${p.price}"> </td>
                 <td> <a th:href="@{/products/edit/{id}(id=${p.id})}">Editar</a> </td>
                 <td> <a onclick="return window.confirm('Tem certeza que deseja excluir este registro?')"  th:href="@{/products/remove/{id}(id=${p.id})}">Excluir</a> </td>
             </tr>
