@@ -9,6 +9,7 @@ import br.edu.ifto.model.entity.Product;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -41,6 +42,17 @@ public class ProductController {
     @PostMapping("/save")
     public ModelAndView save(Product product){
         dao.save(product);
+        return new ModelAndView("redirect:/products/list");
+    }
+
+    /**
+     * @param id
+     * @return
+     * @PathVariable é utilizado quando o valor da variável é passada diretamente na URL
+     */
+    @GetMapping("/remove/{id}")
+    public ModelAndView remove(@PathVariable("id") Long id){
+        dao.remove(id);
         return new ModelAndView("redirect:/products/list");
     }
 }
