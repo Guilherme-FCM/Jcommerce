@@ -4,9 +4,11 @@
  */
 package br.edu.ifto.controller;
 
-import br.edu.ifto.model.dao.ProductDAO;
 import br.edu.ifto.model.entity.Product;
+import br.edu.ifto.model.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,13 +22,12 @@ import org.springframework.web.servlet.ModelAndView;
  */
 
 @Controller
+@Transactional
 @RequestMapping("products")
 public class ProductController {
-    ProductDAO dao;
-
-    public ProductController() {
-        dao = new ProductDAO();
-    }
+    
+    @Autowired
+    ProductRepository repository;
     
     @GetMapping()
     public String listProducts(){
@@ -35,7 +36,7 @@ public class ProductController {
     
     @GetMapping("/list")
     public ModelAndView listProducts(ModelMap model){
-        model.addAttribute("products", dao.listProducts());
+        model.addAttribute("products", repository.findProducts());
         return new ModelAndView("/products/list", model);
     }
     
@@ -46,7 +47,7 @@ public class ProductController {
     
     @PostMapping("/save")
     public ModelAndView save(Product product){
-        dao.save(product);
+        repository.create(product);
         return new ModelAndView("redirect:/products/list");
     }
 
@@ -57,7 +58,7 @@ public class ProductController {
      */
     @GetMapping("/remove/{id}")
     public ModelAndView remove(@PathVariable("id") Long id){
-        dao.remove(id);
+        repository.remove(id);
         return new ModelAndView("redirect:/products/list");
     }
 
@@ -69,13 +70,13 @@ public class ProductController {
      */
     @GetMapping("/edit/{id}")
     public ModelAndView edit(@PathVariable("id") Long id, ModelMap model) {
-        model.addAttribute("product", dao.listProducts(id));
+        model.addAttribute("product", repository.findProducts(id));
         return new ModelAndView("/products/form", model);
     }
 
     @PostMapping("/update")
     public ModelAndView update(Product product) {
-        dao.update(product);
+        repository.update(product);
         return new ModelAndView("redirect:/products/list");
     }
 }
