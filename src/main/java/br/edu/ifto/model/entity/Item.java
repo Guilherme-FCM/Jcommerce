@@ -18,7 +18,7 @@ import javax.persistence.Table;
  * @author GuilhermeFCM
  */
 @Entity
-@Table(name = "item")
+@Table(name = "items")
 public class Item implements Serializable {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +30,10 @@ public class Item implements Serializable {
     @OneToOne
     @JoinColumn(name = "product_id")
     private Product product;
+    
+    @OneToOne
+    @JoinColumn(name = "sale_id")
+    private Sale sale;
     
     public double total(){ 
         return product.getPrice() * amount; 
