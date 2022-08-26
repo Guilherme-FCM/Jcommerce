@@ -7,7 +7,7 @@
     </head>
     <body>
 
-        <h1>FORM</h1>
+        <h1>Cadastro de Produtos</h1>
         <form th:action="${product.id == null} ? @{/products/save} : @{/products/update}" th:object="${product}" method="post">
             <input type="hidden" th:field="*{id}">
             <input type="text" th:field="*{description}" placeholder="Descrição">
