@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <table class="table" border="1">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Data</th>
+                    <th>Total</th>
+                    <th>Editar</th>
+                    <th>Excluir</th>
+                </tr>
+            </thead>
+            <tr th:each="s : ${sales}">
+                <td th:text="${s.id}"> </td>
+                <td th:text="${s.date}"> </td>
+                <td th:text="${s.total}"> </td>
+                <td> <a th:href="@{/sales/edit/{id}(id=${s.id})}">Editar</a> </td>
+                <td> <a onclick="return window.confirm('Tem certeza que deseja excluir este registro?')"  th:href="@{/sales/remove/{id}(id=${s.id})}">Excluir</a> </td>
+            </tr>
+        </table>
+        <button><a href="/sales/form">Criar</a></button>
+    </body>
+</html>

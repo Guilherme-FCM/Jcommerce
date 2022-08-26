@@ -31,7 +31,7 @@ public class ProductController {
     
     @GetMapping()
     public String listProducts(){
-        return "/products/home";
+        return "/products/list";
     }
     
     @GetMapping("/list")
