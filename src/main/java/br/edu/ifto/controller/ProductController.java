@@ -30,11 +30,6 @@ public class ProductController {
     ProductRepository repository;
     
     @GetMapping()
-    public String listProducts(){
-        return "/products/list";
-    }
-    
-    @GetMapping("/list")
     public ModelAndView listProducts(ModelMap model){
         model.addAttribute("products", repository.findProducts());
         return new ModelAndView("/products/list", model);
