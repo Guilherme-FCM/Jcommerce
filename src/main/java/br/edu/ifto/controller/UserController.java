@@ -4,6 +4,7 @@
  */
 package br.edu.ifto.controller;
 
+import br.edu.ifto.model.entity.User;
 import br.edu.ifto.model.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,5 +29,10 @@ public class UserController {
     public ModelAndView findAll(ModelMap model){
         model.addAttribute("users", repository.findAll());
         return new ModelAndView("/users/list", model);
+    }
+
+    @GetMapping("/form")
+    public String form(User user){
+        return "/users/form";
     }
 }
