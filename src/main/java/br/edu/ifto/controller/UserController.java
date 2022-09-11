@@ -55,4 +55,10 @@ public class UserController {
         repository.update(user);
         return new ModelAndView("redirect:/users");
     }
+
+    @GetMapping("/remove/{id}")
+    public ModelAndView remove(@PathVariable Long id){
+        repository.remove(id);
+        return new ModelAndView("redirect:/users");
+    }
 }

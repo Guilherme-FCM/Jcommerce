@@ -30,4 +30,6 @@ public class UserRepository {
     public void create(User user){ em.persist(user); }
 
     public User update(User user){ return em.merge(user); }
+
+    public void remove(Long id) { em.remove( this.find(id) ); }
 }
