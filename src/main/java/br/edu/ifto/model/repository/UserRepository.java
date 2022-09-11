@@ -24,4 +24,8 @@ public class UserRepository {
         Query query = em.createQuery("from User");
         return query.getResultList();
     }
+
+    public void create(User user){
+        em.persist(user);
+    }
 }

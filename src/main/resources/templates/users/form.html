@@ -7,10 +7,10 @@
     </head>
     <body>
         <h1>Cadastro de Usuários</h1>
-        <form th:action="${user.id == null} ? @{/user/save} : @{/user/update}" th:object="${user}" method="post">
+        <form th:action="${user.id == null} ? @{/users/save} : @{/users/update}" th:object="${user}" method="post">
             <input type="hidden" th:field="*{id}">
             <input type="text" th:field="*{name}" placeholder="Nome">
-            <input type="number" th:field="*{cpf}" placeholder="CPF">
+            <input type="text" th:field="*{cpf}" placeholder="CPF">
             <input type="submit" value="Enviar">
         </form>
     </body>

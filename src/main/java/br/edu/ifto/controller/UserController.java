@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -34,5 +35,11 @@ public class UserController {
     @GetMapping("/form")
     public String form(User user){
         return "/users/form";
+    }
+
+    @PostMapping("/save")
+    public ModelAndView save(User user){
+        repository.create(user);
+        return new ModelAndView("redirect:/users");
     }
 }
