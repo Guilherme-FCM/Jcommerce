@@ -3,13 +3,32 @@
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
+<html xmlns:th="http://www.thymeleaf.org">
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Empresas | Listagem</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>TODO write content</div>
+        <table class="table" border="1">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>CNPJ</th>
+                <th>Editar</th>
+                <th>Excluir</th>
+            </tr>
+            </thead>
+            <tr th:each="c : ${companies}">
+                <td th:text="${c.id}"> </td>
+                <td th:text="${c.name}"> </td>
+                <td th:text="${c.cnpj}"> </td>
+                <td> <a th:href="@{/companies/edit/{id}(id=${c.id})}">Editar</a> </td>
+                <td> <a onclick="return window.confirm('Tem certeza que deseja excluir este registro?')"  th:href="@{/companies/remove/{id}(id=${c.id})}">Excluir</a> </td>
+            </tr>
+        </table>
+        <button><a href="/companies/form">Criar</a></button>
     </body>
 </html>
