@@ -25,7 +25,9 @@ public class UserRepository {
         return query.getResultList();
     }
 
-    public void create(User user){
-        em.persist(user);
-    }
+    public User find(Long id){ return em.find(User.class, id); }
+
+    public void create(User user){ em.persist(user); }
+
+    public User update(User user){ return em.merge(user); }
 }

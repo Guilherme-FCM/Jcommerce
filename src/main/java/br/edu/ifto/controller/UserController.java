@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -40,6 +41,18 @@ public class UserController {
     @PostMapping("/save")
     public ModelAndView save(User user){
         repository.create(user);
+        return new ModelAndView("redirect:/users");
+    }
+
+    @GetMapping("/edit/{id}")
+    public ModelAndView edit(@PathVariable Long id, ModelMap model) {
+        model.addAttribute("user", repository.find(id));
+        return new ModelAndView("/users/form", model);
+    }
+
+    @PostMapping("/update")
+    public ModelAndView update(User user){
+        repository.update(user);
         return new ModelAndView("redirect:/users");
     }
 }
