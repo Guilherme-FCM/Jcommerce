@@ -27,7 +27,7 @@ public class UserController {
     @Autowired
     UserRepository repository;
     
-    @GetMapping()
+    @GetMapping
     public ModelAndView findAll(ModelMap model){
         model.addAttribute("users", repository.findAll());
         return new ModelAndView("/users/list", model);

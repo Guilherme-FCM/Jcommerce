@@ -29,7 +29,7 @@ public class ProductController {
     @Autowired
     ProductRepository repository;
     
-    @GetMapping()
+    @GetMapping
     public ModelAndView listProducts(ModelMap model){
         model.addAttribute("products", repository.findProducts());
         return new ModelAndView("/products/list", model);
@@ -43,7 +43,7 @@ public class ProductController {
     @PostMapping("/save")
     public ModelAndView save(Product product){
         repository.create(product);
-        return new ModelAndView("redirect:/products/list");
+        return new ModelAndView("redirect:/products");
     }
 
     /**
@@ -54,7 +54,7 @@ public class ProductController {
     @GetMapping("/remove/{id}")
     public ModelAndView remove(@PathVariable("id") Long id){
         repository.remove(id);
-        return new ModelAndView("redirect:/products/list");
+        return new ModelAndView("redirect:/products");
     }
 
     /**
@@ -72,6 +72,6 @@ public class ProductController {
     @PostMapping("/update")
     public ModelAndView update(Product product) {
         repository.update(product);
-        return new ModelAndView("redirect:/products/list");
+        return new ModelAndView("redirect:/products");
     }
 }

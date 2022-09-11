@@ -25,7 +25,7 @@ public class SaleController {
     @Autowired
     SaleRepository repository;
     
-    @GetMapping()
+    @GetMapping
     public ModelAndView list(ModelMap model){
         model.addAttribute("sales", repository.findAll());
         return new ModelAndView("/sales/list", model);
