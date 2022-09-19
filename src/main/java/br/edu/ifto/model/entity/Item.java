@@ -34,8 +34,13 @@ public class Item implements Serializable {
     @OneToOne
     @JoinColumn(name = "sale_id")
     private Sale sale;
-    
-    public double total(){ 
+
+    public Item(Product product) {
+        this.product = product;
+        this.amount = 1;
+    }
+
+    public double total(){
         return product.getPrice() * amount; 
     }
 

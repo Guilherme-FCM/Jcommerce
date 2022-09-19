@@ -4,6 +4,9 @@
  */
 package br.edu.ifto.model.entity;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +21,8 @@ import javax.persistence.Table;
  *
  * @author GuilhermeFCM
  */
+@Scope("session")
+@Component
 @Entity
 @Table(name = "sales")
 public class Sale implements Serializable {
@@ -34,6 +39,10 @@ public class Sale implements Serializable {
         double sum = 0;
         for ( Item item : items ) sum += item.total();
         return sum;
+    }
+
+    public void addItem(Item item){
+        items.add(item);
     }
 
     public Long getId() {
