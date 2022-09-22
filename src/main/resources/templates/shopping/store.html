@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Faça suas Compras</h1>
+        <table class="table" border="1">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Descrição</th>
+                <th>Preço</th>
+                <th>Adicionar ao Carrinho</th>
+            </tr>
+            </thead>
+            <tr th:each="p : ${products}">
+                <td th:text="${p.id}"> </td>
+                <td th:text="${p.description}"> </td>
+                <td th:text="${p.price}"> </td>
+                <td>
+<!--                    <form action="/sales/addItem" method="post" th:object="${product}">-->
+<!--                        <input type="hidden" th:field="*{id}" th:value="${p.id}">-->
+<!--                        <input type="hidden" th:field="*{description}" th:value="${p.description}">-->
+<!--                        <button type="submit">Adicionar</button>-->
+<!--                    </form>-->
+                    <a th:href="@{/sales/addItem/{productId}(productId=${p.id})}">Adicionar</a>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>
+
