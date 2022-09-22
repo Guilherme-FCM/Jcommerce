@@ -10,19 +10,14 @@ import org.springframework.stereotype.Component;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  *
  * @author GuilhermeFCM
  */
-@Scope("session")
 @Component
+@Scope("session")
 @Entity
 @Table(name = "sales")
 public class Sale implements Serializable {
@@ -32,7 +27,7 @@ public class Sale implements Serializable {
     
     private Date date;
     
-    @OneToMany(mappedBy = "sale")
+    @OneToMany(mappedBy = "sale", cascade = CascadeType.PERSIST)
     private List<Item> items;
     
     public double total(){

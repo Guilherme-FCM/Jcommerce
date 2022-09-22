@@ -4,6 +4,8 @@
  */
 package br.edu.ifto.model.entity;
 
+import org.springframework.stereotype.Component;
+
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +19,7 @@ import javax.persistence.Table;
  *
  * @author GuilhermeFCM
  */
+@Component
 @Entity
 @Table(name = "items")
 public class Item implements Serializable {
@@ -34,11 +37,6 @@ public class Item implements Serializable {
     @OneToOne
     @JoinColumn(name = "sale_id")
     private Sale sale;
-
-    public Item(Product product) {
-        this.product = product;
-        this.amount = 1;
-    }
 
     public double total(){
         return product.getPrice() * amount; 

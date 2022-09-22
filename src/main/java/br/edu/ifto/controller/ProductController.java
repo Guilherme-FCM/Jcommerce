@@ -25,12 +25,11 @@ import org.springframework.web.servlet.ModelAndView;
 @Transactional
 @RequestMapping("products")
 public class ProductController {
-    
     @Autowired
     ProductRepository repository;
     
     @GetMapping
-    public ModelAndView listProducts(ModelMap model){
+    public ModelAndView listProducts(ModelMap model) {
         model.addAttribute("products", repository.findProducts());
         return new ModelAndView("/products/list", model);
     }
