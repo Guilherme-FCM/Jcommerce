@@ -1,12 +1,12 @@
 package br.edu.ifto;
 
+import br.edu.ifto.model.entity.Product;
 import br.edu.ifto.model.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,9 +19,14 @@ public class ProductsApplication {
         SpringApplication.run(ProductsApplication.class, args);
     }
         
-    @GetMapping
-    public ModelAndView index(ModelMap model){
+    @GetMapping("store")
+    public ModelAndView store(ModelMap model, Product product){
         model.addAttribute("products", repository.findProducts());
-        return new ModelAndView("/home", model);
+        return new ModelAndView("/shopping/store", model);
+    }
+
+    @GetMapping("cart")
+    public String cart(){
+        return "/shopping/cart";
     }
 }

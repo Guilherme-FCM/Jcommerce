@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
+        <h1>Página Principal</h1>
         <button><a href="/users/form">Cadastrar Usuários</a></button>
         <button><a href="/users">Consultar Usuários</a></button>
         <br>
@@ -15,27 +16,8 @@
         <button><a href="/products/form">Cadastrar Produtos</a></button>
         <button><a href="/products">Consultar Produtos</a></button>
         <br>
-        <table class="table" border="1">
-            <thead>
-            <tr>
-                <th>Id</th>
-                <th>Descrição</th>
-                <th>Preço</th>
-                <th>Adicionar ao Carrinho</th>
-            </tr>
-            </thead>
-            <tr th:each="p : ${products}">
-                <td th:text="${p.id}"> </td>
-                <td th:text="${p.description}"> </td>
-                <td th:text="${p.price}"> </td>
-                <td>
-                    <form action="/sales/addItem" method="post" th:object="${sale}" >
-                        <input type="hidden" th:field="*{item}">
-                        <button type="submit">Adicionar</button>
-                    </form>
-                </td>
-            </tr>
-        </table>
+        <button><a href="/store">Ir para as Compras</a></button>
+        <button><a href="/cart">Ir para o Carrinho</a></button>
     </body>
 </html>
 
