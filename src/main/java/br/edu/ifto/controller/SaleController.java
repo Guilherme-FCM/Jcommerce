@@ -49,6 +49,12 @@ public class SaleController {
         return new ModelAndView("redirect:/sales/store");
     }
 
+    @GetMapping("removeItem/{itemIndex}")
+    public ModelAndView removeItem(@PathVariable int itemIndex){
+        System.out.println(sale.getItems().remove(itemIndex));
+        return new ModelAndView("redirect:/sales/cart");
+    }
+
     @GetMapping("store")
     public ModelAndView store(ModelMap model){
         model.addAttribute("products", productRepository.findProducts());
