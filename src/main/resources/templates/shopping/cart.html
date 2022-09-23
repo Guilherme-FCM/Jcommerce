@@ -3,28 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <title>Carrinho</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 </head>
 <body>
+    <nav class="navbar navbar-expand-sm bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">JCommerce</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/store">Loja</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/cart">Carrinho</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Cadastros
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/products">Produtos</a></li>
+                            <li><a class="dropdown-item" href="/users">Usuários</a></li>
+                            <li><a class="dropdown-item" href="/companies">Empresas</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
     <h1>Carrinho de Compras</h1>
-    <table class="table" border="1">
-        <thead>
-        <tr>
-            <th>N°</th>
-            <th>Descrição</th>
-            <th>Preço</th>
-            <th>Total</th>
-        </tr>
-        </thead>
-        <tr th:each="i, idx : ${session.sale.items}">
-            <td th:text="${idx.count}"> </td>
-            <td th:text="${i.product.description}"> </td>
-            <td th:text="${i.product.price}"> </td>
-            <td th:text="${i.total}"> </td>
-        </tr>
-        <tr>
-            <th colspan="3">Total:</th>
-            <td th:text="${session.sale.total}"></td>
-        </tr>
-    </table>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">N°</th>
+                <th scope="col">Descrição</th>
+                <th scope="col">Preço R$</th>
+                <th scope="col">Quantidade</th>
+                <th scope="col">Total R$</th>
+                <th scope="col">Remover</th>
+            </tr>
+            </thead>
+            <tr scope="row" th:each="i, idx : ${session.sale.items}">
+                <td th:text="${idx.count}"> </td>
+                <td th:text="${i.product.description}"> </td>
+                <td th:text="${i.product.price}"> </td>
+                <td class="mx-auto" width="40">
+                    <input th:value="${i.amount}" type="number" class="form-control">
+                </td>
+                <td th:text="${i.total}"></td>
+                <td><a th:href="@{/sales/removeItem/{id}(id=${i.id})}" class="btn btn-outline-danger"><i class="bi bi-trash"></i></a></td>
+            </tr>
+            <tr scope="row" class="table-active">
+                <th colspan="4">Total:</th>
+                <td th:text="${session.sale.total}"></td>
+                <td></td>
+            </tr>
+        </table>
+        <a th:href="@{/sale/finish}" type="button" class="btn btn-primary">Finalizar Compra</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
 </body>
 </html>
