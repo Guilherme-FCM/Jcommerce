@@ -19,7 +19,6 @@ import javax.persistence.Table;
  *
  * @author GuilhermeFCM
  */
-@Component
 @Entity
 @Table(name = "items")
 public class Item implements Serializable {

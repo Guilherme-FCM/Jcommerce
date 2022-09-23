@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
@@ -28,7 +29,7 @@ public class Sale implements Serializable {
     private Date date;
     
     @OneToMany(mappedBy = "sale", cascade = CascadeType.PERSIST)
-    private List<Item> items;
+    private List<Item> items = new ArrayList();
     
     public double total(){
         double sum = 0;

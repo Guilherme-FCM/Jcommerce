@@ -35,7 +35,7 @@ public class SaleController {
     ProductRepository productRepository;
 
     @Autowired
-    private Sale sale;
+    Sale sale;
 
     @GetMapping
     public ModelAndView list(ModelMap model){
@@ -47,8 +47,20 @@ public class SaleController {
     public ModelAndView addItem(@PathVariable Long productId){
         Product product = productRepository.findProducts(productId);
         Item item = new Item();
+        item.setAmount(1);
         item.setProduct(product);
         sale.addItem(item);
-        return new ModelAndView("redirect:/");
+        return new ModelAndView("redirect:/sales/store");
+    }
+
+    @GetMapping("store")
+    public ModelAndView store(ModelMap model){
+        model.addAttribute("products", productRepository.findProducts());
+        return new ModelAndView("/shopping/store", model);
+    }
+
+    @GetMapping("cart")
+    public String cart(){
+        return "/shopping/cart";
     }
 }
