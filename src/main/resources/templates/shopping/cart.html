@@ -6,5 +6,25 @@
 </head>
 <body>
     <h1>Carrinho de Compras</h1>
+    <table class="table" border="1">
+        <thead>
+        <tr>
+            <th>N°</th>
+            <th>Descrição</th>
+            <th>Preço</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tr th:each="i, idx : ${session.sale.items}">
+            <td th:text="${idx.count}"> </td>
+            <td th:text="${i.product.description}"> </td>
+            <td th:text="${i.product.price}"> </td>
+            <td th:text="${i.total}"> </td>
+        </tr>
+        <tr>
+            <th colspan="3">Total:</th>
+            <td th:text="${session.sale.total}"></td>
+        </tr>
+    </table>
 </body>
 </html>
