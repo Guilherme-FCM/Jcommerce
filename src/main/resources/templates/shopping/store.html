@@ -21,11 +21,6 @@
                 <td th:text="${p.description}"> </td>
                 <td th:text="${p.price}"> </td>
                 <td>
-<!--                    <form action="/sales/addItem" method="post" th:object="${product}">-->
-<!--                        <input type="hidden" th:field="*{id}" th:value="${p.id}">-->
-<!--                        <input type="hidden" th:field="*{description}" th:value="${p.description}">-->
-<!--                        <button type="submit">Adicionar</button>-->
-<!--                    </form>-->
                     <a th:href="@{/sales/addItem/{productId}(productId=${p.id})}">Adicionar</a>
                 </td>
             </tr>

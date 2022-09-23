@@ -17,7 +17,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-
 /**
  *
  * @author GuilhermeFCM
@@ -46,10 +45,7 @@ public class SaleController {
     @GetMapping("addItem/{productId}")
     public ModelAndView addItem(@PathVariable Long productId){
         Product product = productRepository.findProducts(productId);
-        Item item = new Item();
-        item.setAmount(1);
-        item.setProduct(product);
-        sale.addItem(item);
+        sale.addItem( new Item(product) );
         return new ModelAndView("redirect:/sales/store");
     }
 
