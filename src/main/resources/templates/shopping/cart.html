@@ -56,7 +56,9 @@
                 <td th:text="${i.product.description}"> </td>
                 <td th:text="${i.product.price}"> </td>
                 <td class="mx-auto" width="40">
-                    <input th:value="${i.amount}" type="number" class="form-control">
+                    <form method="post" th:action="@{/sales/updateItemAmount/{idx}(idx=${idx.index})}" th:object="${item}">
+                        <input th:field="*{amount}" th:value="${i.amount}"  type="number" class="form-control" onchange="sendAmount(this)">
+                    </form>
                 </td>
                 <td th:text="${i.total}"></td>
                 <td><a th:href="@{/sales/removeItem/{idx}(idx=${idx.index})}" class="btn btn-outline-danger"><i class="bi bi-trash"></i></a></td>
@@ -69,7 +71,11 @@
         </table>
         <a th:href="@{/sale/finish}" type="button" class="btn btn-primary">Finalizar Compra</a>
     </div>
-
+    <script>
+        function sendAmount(element){
+            element.parentElement.submit()
+        }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
 </body>

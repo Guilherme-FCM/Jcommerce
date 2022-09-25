@@ -37,10 +37,6 @@ public class Item implements Serializable {
     @JoinColumn(name = "sale_id")
     private Sale sale;
 
-    public Item(Product product, int amount) {
-        this.product = product;
-        this.amount = amount;
-    }
 
     public Item(Product product) {
         this.product = product;

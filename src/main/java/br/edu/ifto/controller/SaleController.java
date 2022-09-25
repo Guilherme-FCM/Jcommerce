@@ -55,6 +55,12 @@ public class SaleController {
         return new ModelAndView("redirect:/sales/cart");
     }
 
+    @PostMapping("updateItemAmount/{itemIndex}")
+    public ModelAndView updateItem(@PathVariable int itemIndex, Item item){
+        sale.getItems().get(itemIndex).setAmount(item.getAmount());
+        return new ModelAndView("redirect:/sales/cart");
+    }
+
     @GetMapping("store")
     public ModelAndView store(ModelMap model){
         model.addAttribute("products", productRepository.findProducts());
@@ -62,7 +68,5 @@ public class SaleController {
     }
 
     @GetMapping("cart")
-    public String cart(){
-        return "/shopping/cart";
-    }
+    public String cart(Item item){ return "/shopping/cart"; }
 }
