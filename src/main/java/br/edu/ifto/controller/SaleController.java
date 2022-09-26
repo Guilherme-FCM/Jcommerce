@@ -17,6 +17,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
+import java.util.Date;
+
 /**
  *
  * @author GuilhermeFCM
@@ -69,4 +72,12 @@ public class SaleController {
 
     @GetMapping("cart")
     public String cart(Item item){ return "/shopping/cart"; }
+
+    @GetMapping("finish")
+    public ModelAndView finish(HttpSession session){
+        sale.setDate(new Date());
+        repository.create(sale);
+        session.invalidate();
+        return new ModelAndView("redirect:/sales/store");
+    }
 }

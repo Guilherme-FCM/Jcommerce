@@ -4,16 +4,8 @@
  */
 package br.edu.ifto.model.entity;
 
-import org.springframework.stereotype.Component;
-
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  *
@@ -33,15 +25,15 @@ public class Item implements Serializable {
     @JoinColumn(name = "product_id")
     private Product product;
     
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "sale_id")
     private Sale sale;
-
 
     public Item(Product product) {
         this.product = product;
         this.amount = 1;
     }
+    public Item() {}
 
     public double total(){
         return product.getPrice() * amount; 
