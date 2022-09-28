@@ -8,25 +8,26 @@
     </head>
     <body>
         <div th:replace="~{fragments/nav :: nav}"></div>
-        <table class="table" border="1">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Data</th>
-                    <th>Total</th>
-                    <th>Editar</th>
-                    <th>Excluir</th>
+        <div class="container">
+            <table class="table">
+                <thead>
+                    <tr class="table-active">
+                        <th>Id</th>
+                        <th>Data</th>
+                        <th>Total</th>
+                        <th>Editar</th>
+                        <th>Excluir</th>
+                    </tr>
+                </thead>
+                <tr th:each="s : ${sales}">
+                    <td th:text="${s.id}"> </td>
+                    <td th:text="${s.date}"> </td>
+                    <td th:text="${s.total}"> </td>
+                    <td> <a class="btn btn-outline-primary" th:href="@{/sales/edit/{id}(id=${s.id})}">Editar</a> </td>
+                    <td> <a class="btn btn-outline-danger" onclick="return window.confirm('Tem certeza que deseja excluir este registro?')"  th:href="@{/sales/remove/{id}(id=${s.id})}">Excluir</a> </td>
                 </tr>
-            </thead>
-            <tr th:each="s : ${sales}">
-                <td th:text="${s.id}"> </td>
-                <td th:text="${s.date}"> </td>
-                <td th:text="${s.total}"> </td>
-                <td> <a th:href="@{/sales/edit/{id}(id=${s.id})}">Editar</a> </td>
-                <td> <a onclick="return window.confirm('Tem certeza que deseja excluir este registro?')"  th:href="@{/sales/remove/{id}(id=${s.id})}">Excluir</a> </td>
-            </tr>
-        </table>
-        <button><a href="/sales/form">Criar</a></button>
+            </table>
+        </div>
 
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
