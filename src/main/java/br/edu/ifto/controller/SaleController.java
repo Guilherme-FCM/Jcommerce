@@ -54,7 +54,7 @@ public class SaleController {
 
     @GetMapping("removeItem/{itemIndex}")
     public ModelAndView removeItem(@PathVariable int itemIndex){
-        System.out.println(sale.getItems().remove(itemIndex));
+        sale.getItems().remove(itemIndex);
         return new ModelAndView("redirect:/sales/cart");
     }
 
