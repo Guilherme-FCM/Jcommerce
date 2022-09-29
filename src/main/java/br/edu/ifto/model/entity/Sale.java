@@ -38,6 +38,7 @@ public class Sale implements Serializable {
     }
 
     public void addItem(Item item){
+        item.setSale(this);
         items.add(item);
     }
 

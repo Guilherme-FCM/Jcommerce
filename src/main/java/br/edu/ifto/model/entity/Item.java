@@ -62,4 +62,12 @@ public class Item implements Serializable {
     public void setProduct(Product product) {
         this.product = product;
     }
+
+    public Sale getSale() {
+        return sale;
+    }
+
+    public void setSale(Sale sale) {
+        this.sale = sale;
+    }
 }
