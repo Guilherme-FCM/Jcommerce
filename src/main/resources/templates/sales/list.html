@@ -16,15 +16,13 @@
                         <th>Data</th>
                         <th>Total</th>
                         <th>Editar</th>
-                        <th>Excluir</th>
                     </tr>
                 </thead>
                 <tr th:each="s : ${sales}">
                     <td th:text="${s.id}"> </td>
                     <td th:text="${s.date}"> </td>
                     <td th:text="${s.total}"> </td>
-                    <td> <a class="btn btn-outline-primary" th:href="@{/sales/edit/{id}(id=${s.id})}">Editar</a> </td>
-                    <td> <a class="btn btn-outline-danger" onclick="return window.confirm('Tem certeza que deseja excluir este registro?')"  th:href="@{/sales/remove/{id}(id=${s.id})}">Excluir</a> </td>
+                    <td> <a class="btn btn-outline-primary" th:href="@{/sales/details/{id}(id=${s.id})}">Ver mais</a> </td>
                 </tr>
             </table>
         </div>
