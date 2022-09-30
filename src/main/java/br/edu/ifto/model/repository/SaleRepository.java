@@ -26,5 +26,7 @@ public class SaleRepository {
         return query.getResultList();
     }
 
+    public Sale findOne(Long id){ return em.find(Sale.class, id); }
+
     public void create(Sale sale){ em.persist(sale); }
 }

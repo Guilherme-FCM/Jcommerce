@@ -45,6 +45,12 @@ public class SaleController {
         return new ModelAndView("/sales/list", model);
     }
 
+    @GetMapping("/details/{id}")
+    public ModelAndView details(ModelMap model, @PathVariable Long id){
+        model.addAttribute("sale", repository.findOne(id));
+        return new ModelAndView("sales/details");
+    }
+
     @GetMapping("addItem/{productId}")
     public ModelAndView addItem(@PathVariable Long productId){
         Product product = productRepository.findProducts(productId);
