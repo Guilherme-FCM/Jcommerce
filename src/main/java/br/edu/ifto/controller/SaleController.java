@@ -81,7 +81,6 @@ public class SaleController {
 
     @GetMapping("finish")
     public ModelAndView finish(HttpSession session){
-        sale.setDate(new Date());
         repository.create(sale);
         session.invalidate();
         return new ModelAndView("redirect:/sales/store");
