@@ -10,7 +10,10 @@
 <div th:replace="~{fragments/nav :: nav}"></div>
 <div class="container">
     <h3>Venda N° <span th:text="${sale.getId}"></span></h3>
-    <p>Data: <span th:text="${sale.getDate}"></span></p>
+    <p>
+        <strong>Cliente:</strong> <span th:text="${sale.user.name}"></span><br>
+        <strong>Data:</strong> <span th:text="${sale.getDate}"></span>
+    </p>
     <table class="table table-hover">
         <thead>
         <tr class="table-active">
