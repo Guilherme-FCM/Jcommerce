@@ -21,7 +21,10 @@
                     <label for="cnpj">CNPJ:</label>
                     <input id="cnpj" class="form-control" th:field="*{cnpj}" placeholder="Ex: XX.XXX.XXX/0001-XX">
                 </div>
-                <button class="btn btn-primary mt-3" type="submit">Enviar</button>
+                <div class="d-flex justify-content-between mt-3">
+                    <a class="btn btn-outline-primary" href="/companies">Voltar para a Listagem</a>
+                    <button class="btn btn-primary" type="submit">Enviar</button>
+                </div>
             </form>
         </div>
     </body>

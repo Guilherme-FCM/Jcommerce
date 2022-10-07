@@ -20,7 +20,10 @@
                     <label for="price">Preço:</label>
                     <input id="price" class="form-control" th:field="*{price}" type="number" placeholder="R$: 0,00">
                 </div>
-                <button class="btn btn-primary mt-3" type="submit">Enviar</button>
+                <div class="d-flex justify-content-between mt-3">
+                    <a class="btn btn-outline-primary" href="/products">Voltar para a Listagem</a>
+                    <button class="btn btn-primary" type="submit">Enviar</button>
+                </div>
             </form>
         </div>
     </body>

@@ -20,7 +20,10 @@
                     <label for="cpf">CPF:</label>
                     <input id="cpf" class="form-control" th:field="*{cpf}" placeholder="Ex: XXX.XXX.XXX-XX">
                 </div>
-                <button class="btn btn-primary mt-3" type="submit">Enviar</button>
+                <div class="d-flex justify-content-between mt-3">
+                    <a class="btn btn-outline-primary" href="/users">Voltar para a Listagem</a>
+                    <button class="btn btn-primary" type="submit">Enviar</button>
+                </div>
             </form>
         <div class="container">
     </body>
