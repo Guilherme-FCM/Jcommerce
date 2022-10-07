@@ -34,7 +34,7 @@ public class Sale implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private User user = new User();
     
     public double total(){
         double sum = 0;
