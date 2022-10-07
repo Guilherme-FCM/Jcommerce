@@ -7,8 +7,10 @@ package br.edu.ifto.controller;
 import br.edu.ifto.model.entity.Item;
 import br.edu.ifto.model.entity.Product;
 import br.edu.ifto.model.entity.Sale;
+import br.edu.ifto.model.entity.User;
 import br.edu.ifto.model.repository.ProductRepository;
 import br.edu.ifto.model.repository.SaleRepository;
+import br.edu.ifto.model.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -35,6 +37,9 @@ public class SaleController {
 
     @Autowired
     ProductRepository productRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Autowired
     Sale sale;
@@ -77,7 +82,10 @@ public class SaleController {
     }
 
     @GetMapping("cart")
-    public String cart(Item item){ return "/shopping/cart"; }
+    public ModelAndView cart(ModelMap model, Item item){
+        model.addAttribute("users", userRepository.findAll());
+        return new ModelAndView("/shopping/cart", model);
+    }
 
     @GetMapping("finish")
     public ModelAndView finish(HttpSession session){
