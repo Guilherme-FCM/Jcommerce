@@ -9,6 +9,10 @@
     <body>
         <div th:replace="~{fragments/nav :: nav}"></div>
         <div class="container">
+            <div class="d-flex justify-content-between">
+                <h1 class="align-self-center">Listagem de Produtos</h1>
+                <a class="btn btn-primary align-self-center" href="/products/form">Criar</a>
+            </div>
             <table class="table">
                 <thead>
                     <tr class="table-active">
@@ -27,7 +31,7 @@
                     <td> <a class="btn btn-outline-danger" onclick="return window.confirm('Tem certeza que deseja excluir este registro?')"  th:href="@{/products/remove/{id}(id=${p.id})}"><i class="bi bi-trash"></i></a> </td>
                 </tr>
             </table>
-            <a class="btn btn-primary" href="/products/form">Criar</a>
+
         <div class="container">
     </body>
 </html>
