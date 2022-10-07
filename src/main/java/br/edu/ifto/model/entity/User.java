@@ -5,7 +5,9 @@
 package br.edu.ifto.model.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.List;
 
 /**
  *
@@ -15,6 +17,9 @@ import javax.persistence.Table;
 @Table(name = "users")
 public class User extends Person {
     private String cpf;
+
+    @OneToMany(mappedBy = "user")
+    private List<Sale> sales;
 
     public String getCpf() {
         return cpf;
