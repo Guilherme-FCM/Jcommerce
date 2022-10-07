@@ -31,6 +31,10 @@ public class Sale implements Serializable {
     
     @OneToMany(mappedBy = "sale", cascade = CascadeType.PERSIST)
     private List<Item> items = new ArrayList();
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
     
     public double total(){
         double sum = 0;
@@ -65,5 +69,13 @@ public class Sale implements Serializable {
 
     public void setItems(List<Item> items) {
         this.items = items;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
