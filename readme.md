@@ -134,3 +134,5 @@ Não será implementado ao sistema a acessibilidade para usuários com deficiên
 | 1-5-1 | Relatório de entrega do produto | Fase | Gerente de Projeto |
 | 1-5-2 | Termo de aceite e encerramento do projeto | Fase | Gerente de Projeto |
 
+### **Story Mapping e Cronograma**
+![image](https://user-images.githubusercontent.com/54874044/194129226-1f8506db-889c-44da-adb1-38f3d406021f.png)
