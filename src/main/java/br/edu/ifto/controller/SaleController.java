@@ -87,6 +87,12 @@ public class SaleController {
         return new ModelAndView("/shopping/cart", model);
     }
 
+    @PostMapping("changeUser")
+    public ModelAndView changeUser(User user){
+        sale.setUser(user);
+        return new ModelAndView("redirect:/sales/cart");
+    }
+
     @GetMapping("finish")
     public ModelAndView finish(HttpSession session){
         repository.create(sale);
