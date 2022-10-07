@@ -28,8 +28,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <td th:text="${c.id}"> </td>
                     <td th:text="${c.name}"> </td>
                     <td th:text="${c.cnpj}"> </td>
-                    <td> <a class="btn btn-outline-primary" th:href="@{/companies/edit/{id}(id=${c.id})}">Editar</a> </td>
-                    <td> <a class="btn btn-outline-danger" onclick="return window.confirm('Tem certeza que deseja excluir este registro?')"  th:href="@{/companies/remove/{id}(id=${c.id})}">Excluir</a> </td>
+                    <td> <a class="btn btn-outline-primary" th:href="@{/companies/edit/{id}(id=${c.id})}"><i class="bi bi-pencil-square"></i></a> </td>
+                    <td> <a class="btn btn-outline-danger" onclick="return window.confirm('Tem certeza que deseja excluir este registro?')"  th:href="@{/companies/remove/{id}(id=${c.id})}"><i class="bi bi-trash"></i></a> </td>
                 </tr>
             </table>
             <a class="btn btn-primary" href="/companies/form">Criar</a>

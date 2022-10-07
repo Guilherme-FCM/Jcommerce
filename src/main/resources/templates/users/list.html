@@ -28,8 +28,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <td th:text="${u.id}"> </td>
                     <td th:text="${u.name}"> </td>
                     <td th:text="${u.cpf}"> </td>
-                    <td> <a class="btn btn-outline-primary" th:href="@{/users/edit/{id}(id=${u.id})}">Editar</a> </td>
-                    <td> <a class="btn btn-outline-danger" onclick="return window.confirm('Tem certeza que deseja excluir este registro?')"  th:href="@{/users/remove/{id}(id=${u.id})}">Excluir</a> </td>
+                    <td> <a class="btn btn-outline-primary" th:href="@{/users/edit/{id}(id=${u.id})}"><i class="bi bi-pencil-square"></i></a> </td>
+                    <td> <a class="btn btn-outline-danger" onclick="return window.confirm('Tem certeza que deseja excluir este registro?')"  th:href="@{/users/remove/{id}(id=${u.id})}"><i class="bi bi-trash"></i></a> </td>
                 </tr>
             </table>
             <a class="btn btn-primary" href="/users/form">Criar</a>
