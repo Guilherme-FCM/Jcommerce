@@ -16,7 +16,7 @@
                         <th>Id</th>
                         <th>Cliente</th>
                         <th>Data</th>
-                        <th>Total R$</th>
+                        <th>Total (R$)</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -24,7 +24,7 @@
                     <td th:text="${s.id}"> </td>
                     <td th:text="${s.user.name}"> </td>
                     <td th:text="${s.date}"> </td>
-                    <td th:text="${s.total}"> </td>
+                    <td th:text="${#numbers.formatCurrency(s.total)}"> </td>
                     <td> <a class="btn btn-outline-primary" th:href="@{/sales/details/{id}(id=${s.id})}">Ver mais</a> </td>
                 </tr>
             </table>

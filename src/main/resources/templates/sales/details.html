@@ -12,28 +12,28 @@
     <h3>Venda N° <span th:text="${sale.getId}"></span></h3>
     <p>
         <strong>Cliente:</strong> <span th:text="${sale.user.name}"></span><br>
-        <strong>Data:</strong> <span th:text="${sale.getDate}"></span>
+        <strong>Data:</strong> <span th:text="${sale.date}"></span>
     </p>
     <table class="table table-hover">
         <thead>
         <tr class="table-active">
             <th scope="col">N°</th>
             <th scope="col">Descrição</th>
-            <th scope="col">Preço R$</th>
+            <th scope="col">Preço Unitário(R$)</th>
             <th scope="col">Quantidade</th>
-            <th scope="col">Total R$</th>
+            <th scope="col">Total (R$)</th>
         </tr>
         </thead>
         <tr scope="row" th:each="i, idx : ${sale.items}">
             <td th:text="${idx.count}"></td>
             <td th:text="${i.product.description}"></td>
-            <td th:text="${i.product.price}"></td>
+            <td th:text="${#numbers.formatCurrency(i.product.price)}"></td>
             <td th:text="${i.getAmount()}"></td>
-            <td th:text="${i.total}"></td>
+            <td th:text="${#numbers.formatCurrency(i.total)}"></td>
         </tr>
         <tr scope="row" class="table-active">
             <th colspan="4">Total:</th>
-            <td th:text="${sale.total}"></td>
+            <td th:text="${#numbers.formatCurrency(sale.total)}"></td>
         </tr>
     </table>
 </div>

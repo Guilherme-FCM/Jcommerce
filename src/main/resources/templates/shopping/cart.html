@@ -14,27 +14,27 @@
             <tr>
                 <th scope="col">N°</th>
                 <th scope="col">Descrição</th>
-                <th scope="col">Preço R$</th>
+                <th scope="col">Preço Unitário (R$)</th>
                 <th scope="col">Quantidade</th>
-                <th scope="col">Total R$</th>
+                <th scope="col">Total (R$)</th>
                 <th scope="col">Remover</th>
             </tr>
             </thead>
             <tr scope="row" th:each="i, idx : ${session.sale.items}">
                 <td th:text="${idx.count}"> </td>
                 <td th:text="${i.product.description}"> </td>
-                <td th:text="${i.product.price}"> </td>
+                <td th:text="${#numbers.formatCurrency(i.product.price)}"> </td>
                 <td class="mx-auto" width="40">
                     <form method="post" th:action="@{/sales/updateItemAmount/{idx}(idx=${idx.index})}" th:object="${item}">
                         <input th:name="amount" th:value="${i.amount}" type="number" class="form-control" onchange="send(this)">
                     </form>
                 </td>
-                <td th:text="${i.total}"></td>
+                <td th:text="${#numbers.formatCurrency(i.total)}"></td>
                 <td><a th:href="@{/sales/removeItem/{idx}(idx=${idx.index})}" class="btn btn-outline-danger"><i class="bi bi-trash"></i></a></td>
             </tr>
             <tr scope="row" class="table-active">
                 <th colspan="4">Total:</th>
-                <td th:text="${session.sale.total}"></td>
+                <td th:text="${#numbers.formatCurrency(session.sale.total)}"></td>
                 <td></td>
             </tr>
         </table>
