@@ -33,7 +33,7 @@
                 <td><a th:href="@{/sales/removeItem/{idx}(idx=${idx.index})}" class="btn btn-outline-danger"><i class="bi bi-trash"></i></a></td>
             </tr>
             <tr scope="row" class="table-active">
-                <th colspan="4">Total:</th>
+                <th colspan="4">Valor Final:</th>
                 <td th:text="${#numbers.formatCurrency(session.sale.total)}"></td>
                 <td></td>
             </tr>

@@ -12,7 +12,7 @@
     <h3>Venda N° <span th:text="${sale.getId}"></span></h3>
     <p>
         <strong>Cliente:</strong> <span th:text="${sale.user.name}"></span><br>
-        <strong>Data:</strong> <span th:text="${sale.date}"></span>
+        <strong>Data:</strong> <span th:text="${#temporals.format(sale.date, 'dd/MM/yyyy')}"></span>
     </p>
     <table class="table table-hover">
         <thead>
@@ -32,7 +32,7 @@
             <td th:text="${#numbers.formatCurrency(i.total)}"></td>
         </tr>
         <tr scope="row" class="table-active">
-            <th colspan="4">Total:</th>
+            <th colspan="4">Valor Final:</th>
             <td th:text="${#numbers.formatCurrency(sale.total)}"></td>
         </tr>
     </table>
