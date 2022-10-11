@@ -30,7 +30,7 @@ public class ProductController {
     
     @GetMapping
     public ModelAndView listProducts(ModelMap model) {
-        model.addAttribute("products", repository.findProducts());
+        model.addAttribute("products", repository.findAll());
         return new ModelAndView("/products/list", model);
     }
     
@@ -41,7 +41,7 @@ public class ProductController {
     
     @PostMapping("/save")
     public ModelAndView save(Product product){
-        repository.create(product);
+        repository.save(product);
         return new ModelAndView("redirect:/products");
     }
 
@@ -51,8 +51,8 @@ public class ProductController {
      * @PathVariable é utilizado quando o valor da variável é passada diretamente na URL
      */
     @GetMapping("/remove/{id}")
-    public ModelAndView remove(@PathVariable("id") Long id){
-        repository.remove(id);
+    public ModelAndView remove(@PathVariable("id") String id){
+        repository.deleteById(id);
         return new ModelAndView("redirect:/products");
     }
 
@@ -63,14 +63,14 @@ public class ProductController {
      * @PathVariable é utilizado quando o valor da variável é passada diretamente na URL
      */
     @GetMapping("/edit/{id}")
-    public ModelAndView edit(@PathVariable("id") Long id, ModelMap model) {
-        model.addAttribute("product", repository.findProducts(id));
+    public ModelAndView edit(@PathVariable("id") String id, ModelMap model) {
+        model.addAttribute("product", repository.findById(id));
         return new ModelAndView("/products/form", model);
     }
 
     @PostMapping("/update")
     public ModelAndView update(Product product) {
-        repository.update(product);
+        repository.save(product);
         return new ModelAndView("redirect:/products");
     }
 }

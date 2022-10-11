@@ -57,8 +57,8 @@ public class SaleController {
     }
 
     @GetMapping("addItem/{productId}")
-    public ModelAndView addItem(@PathVariable Long productId){
-        Product product = productRepository.findProducts(productId);
+    public ModelAndView addItem(@PathVariable String productId){
+        Product product = productRepository.findById(productId).get();
         sale.addItem( new Item(product) );
         return new ModelAndView("redirect:/sales/store");
     }
@@ -77,7 +77,7 @@ public class SaleController {
 
     @GetMapping("store")
     public ModelAndView store(ModelMap model){
-        model.addAttribute("products", productRepository.findProducts());
+        model.addAttribute("products", productRepository.findAll());
         return new ModelAndView("/shopping/store", model);
     }
 
