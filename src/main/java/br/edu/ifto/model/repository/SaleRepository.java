@@ -4,29 +4,12 @@
  */
 package br.edu.ifto.model.repository;
 
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-
 import br.edu.ifto.model.entity.Sale;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
  * @author GuilhermeFCM
  */
-@Repository
-public class SaleRepository {
-    @PersistenceContext
-    EntityManager em;
-    
-    public List<Sale> findAll(){
-        Query query = em.createQuery("from Sale");
-        return query.getResultList();
-    }
-
-    public Sale findOne(Long id){ return em.find(Sale.class, id); }
-
-    public void create(Sale sale){ em.persist(sale); }
+public interface SaleRepository extends JpaRepository<Sale, Long> {
 }

@@ -30,7 +30,7 @@ public class ProductController {
     
     @GetMapping
     public ModelAndView listProducts(ModelMap model) {
-        model.addAttribute("products", repository.findProducts());
+        model.addAttribute("products", repository.findAll());
         return new ModelAndView("/products/list", model);
     }
     
@@ -41,7 +41,7 @@ public class ProductController {
     
     @PostMapping("/save")
     public ModelAndView save(Product product){
-        repository.create(product);
+        repository.save(product);
         return new ModelAndView("redirect:/products");
     }
 
@@ -52,7 +52,7 @@ public class ProductController {
      */
     @GetMapping("/remove/{id}")
     public ModelAndView remove(@PathVariable("id") Long id){
-        repository.remove(id);
+        repository.deleteById(id);
         return new ModelAndView("redirect:/products");
     }
 
@@ -64,13 +64,13 @@ public class ProductController {
      */
     @GetMapping("/edit/{id}")
     public ModelAndView edit(@PathVariable("id") Long id, ModelMap model) {
-        model.addAttribute("product", repository.findProducts(id));
+        model.addAttribute("product", repository.findById(id).get());
         return new ModelAndView("/products/form", model);
     }
 
     @PostMapping("/update")
     public ModelAndView update(Product product) {
-        repository.update(product);
+        repository.save(product);
         return new ModelAndView("redirect:/products");
     }
 }

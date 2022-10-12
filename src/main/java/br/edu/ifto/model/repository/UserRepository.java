@@ -5,31 +5,10 @@
 package br.edu.ifto.model.repository;
 
 import br.edu.ifto.model.entity.User;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import org.springframework.stereotype.Repository;
-
+import org.springframework.data.jpa.repository.JpaRepository;
 /**
  *
  * @author GuilhermeFCM
  */
-@Repository
-public class UserRepository {
-    @PersistenceContext
-    EntityManager em;
-    
-    public List<User> findAll(){
-        Query query = em.createQuery("from User");
-        return query.getResultList();
-    }
-
-    public User find(Long id){ return em.find(User.class, id); }
-
-    public void create(User user){ em.persist(user); }
-
-    public User update(User user){ return em.merge(user); }
-
-    public void remove(Long id) { em.remove( this.find(id) ); }
+public interface UserRepository extends JpaRepository<User, Long> {
 }

@@ -5,31 +5,10 @@
 package br.edu.ifto.model.repository;
 
 import br.edu.ifto.model.entity.Company;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import org.springframework.stereotype.Repository;
-
+import org.springframework.data.jpa.repository.JpaRepository;
 /**
  *
  * @author GuilhermeFCM
  */
-@Repository
-public class CompanyRepository {
-    @PersistenceContext
-    EntityManager em;
-
-    public List<Company> findAll(){
-        Query query = em.createQuery("from Company");
-        return query.getResultList();
-    }
-
-    public Company find(Long id){ return em.find(Company.class, id); }
-
-    public void create(Company company){ em.persist(company); }
-
-    public Company update(Company company){ return em.merge(company); }
-
-    public void remove(Long id) { em.remove( this.find(id) ); }
+public interface CompanyRepository extends JpaRepository<Company, Long> {
 }

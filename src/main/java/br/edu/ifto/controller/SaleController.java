@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.util.Date;
 
 /**
  *
@@ -52,13 +51,13 @@ public class SaleController {
 
     @GetMapping("/details/{id}")
     public ModelAndView details(ModelMap model, @PathVariable Long id){
-        model.addAttribute("sale", repository.findOne(id));
+        model.addAttribute("sale", repository.findById(id).get());
         return new ModelAndView("sales/details");
     }
 
     @GetMapping("addItem/{productId}")
     public ModelAndView addItem(@PathVariable Long productId){
-        Product product = productRepository.findProducts(productId);
+        Product product = productRepository.findById(productId).get();
         sale.addItem( new Item(product) );
         return new ModelAndView("redirect:/sales/store");
     }
@@ -77,7 +76,7 @@ public class SaleController {
 
     @GetMapping("store")
     public ModelAndView store(ModelMap model){
-        model.addAttribute("products", productRepository.findProducts());
+        model.addAttribute("products", productRepository.findAll());
         return new ModelAndView("/shopping/store", model);
     }
 
@@ -95,7 +94,7 @@ public class SaleController {
 
     @GetMapping("finish")
     public ModelAndView finish(HttpSession session){
-        repository.create(sale);
+        repository.save(sale);
         session.invalidate();
         return new ModelAndView("redirect:/sales/store");
     }
