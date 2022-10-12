@@ -40,25 +40,25 @@ public class UserController {
 
     @PostMapping("/save")
     public ModelAndView save(User user){
-        repository.create(user);
+        repository.save(user);
         return new ModelAndView("redirect:/users");
     }
 
     @GetMapping("/edit/{id}")
     public ModelAndView edit(@PathVariable Long id, ModelMap model) {
-        model.addAttribute("user", repository.find(id));
+        model.addAttribute("user", repository.findById(id).get());
         return new ModelAndView("/users/form", model);
     }
 
     @PostMapping("/update")
     public ModelAndView update(User user){
-        repository.update(user);
+        repository.save(user);
         return new ModelAndView("redirect:/users");
     }
 
     @GetMapping("/remove/{id}")
     public ModelAndView remove(@PathVariable Long id){
-        repository.remove(id);
+        repository.deleteById(id);
         return new ModelAndView("redirect:/users");
     }
 }
