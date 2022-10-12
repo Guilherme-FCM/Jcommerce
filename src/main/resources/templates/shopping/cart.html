@@ -39,15 +39,21 @@
             </tr>
         </table>
         <form th:action="@{/sales/changeUser}" th:object="${user}" method="post">
-            <select th:name="id" class="form-select" aria-label="Selecione um Cliente" onchange="send(this)">
-                <option selected>Selecione um Usuário</option>
+            <select th:name="id" class="form-select" aria-label="Selecione um Cliente" onchange="send(this)" id="selectClient">
+                <option value="0">Selecione um Usuário</option>
                 <option th:each="u : ${users}" th:value="${u.id}" th:text="${u.name}" th:selected="${u.id==session.sale.user.id}"></option>
             </select>
         </form>
-        <a th:href="@{/sales/finish}" type="button" class="btn btn-primary mt-3">Finalizar Compra</a>
+        <a th:href="@{/sales/finish}" class="btn btn-primary mt-3" id="finishSaleButton">Finalizar Compra</a>
     </div>
     <script>
         function send(element){ element.parentElement.submit() }
+        document.getElementById('finishSaleButton').addEventListener('click', function (event){
+            if (document.getElementById("selectClient").value === '0') {
+                event.preventDefault()
+                alert("Selecione um cliente antes de finalizar a venda.")
+            }
+        })
     </script>
 </body>
 </html>
