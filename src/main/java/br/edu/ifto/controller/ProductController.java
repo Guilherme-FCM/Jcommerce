@@ -7,6 +7,7 @@ package br.edu.ifto.controller;
 import br.edu.ifto.model.entity.Product;
 import br.edu.ifto.model.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
@@ -51,7 +52,7 @@ public class ProductController {
      * @PathVariable é utilizado quando o valor da variável é passada diretamente na URL
      */
     @GetMapping("/remove/{id}")
-    public ModelAndView remove(@PathVariable("id") String id){
+    public ModelAndView remove(@PathVariable("id") Long id){
         repository.deleteById(id);
         return new ModelAndView("redirect:/products");
     }
@@ -63,8 +64,8 @@ public class ProductController {
      * @PathVariable é utilizado quando o valor da variável é passada diretamente na URL
      */
     @GetMapping("/edit/{id}")
-    public ModelAndView edit(@PathVariable("id") String id, ModelMap model) {
-        model.addAttribute("product", repository.findById(id));
+    public ModelAndView edit(@PathVariable("id") Long id, ModelMap model) {
+        model.addAttribute("product", repository.findById(id).get());
         return new ModelAndView("/products/form", model);
     }
 
