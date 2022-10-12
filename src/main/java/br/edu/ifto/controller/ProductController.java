@@ -7,7 +7,6 @@ package br.edu.ifto.controller;
 import br.edu.ifto.model.entity.Product;
 import br.edu.ifto.model.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
