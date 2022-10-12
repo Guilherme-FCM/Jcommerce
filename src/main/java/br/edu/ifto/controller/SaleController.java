@@ -51,7 +51,7 @@ public class SaleController {
 
     @GetMapping("/details/{id}")
     public ModelAndView details(ModelMap model, @PathVariable Long id){
-        model.addAttribute("sale", repository.findOne(id));
+        model.addAttribute("sale", repository.findById(id).get());
         return new ModelAndView("sales/details");
     }
 
@@ -94,7 +94,7 @@ public class SaleController {
 
     @GetMapping("finish")
     public ModelAndView finish(HttpSession session){
-        repository.create(sale);
+        repository.save(sale);
         session.invalidate();
         return new ModelAndView("redirect:/sales/store");
     }
