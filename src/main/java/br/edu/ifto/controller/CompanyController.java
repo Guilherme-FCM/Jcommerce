@@ -40,25 +40,25 @@ public class CompanyController {
 
     @PostMapping("/save")
     public ModelAndView save(Company company){
-        repository.create(company);
+        repository.save(company);
         return new ModelAndView("redirect:/companies");
     }
 
     @GetMapping("/edit/{id}")
     public ModelAndView edit(@PathVariable Long id, ModelMap model) {
-        model.addAttribute("company", repository.find(id));
+        model.addAttribute("company", repository.findById(id).get());
         return new ModelAndView("/companies/form", model);
     }
 
     @PostMapping("/update")
     public ModelAndView update(Company company){
-        repository.update(company);
+        repository.save(company);
         return new ModelAndView("redirect:/companies");
     }
 
     @GetMapping("/remove/{id}")
     public ModelAndView remove(@PathVariable Long id){
-        repository.remove(id);
+        repository.deleteById(id);
         return new ModelAndView("redirect:/companies");
     }
 }
