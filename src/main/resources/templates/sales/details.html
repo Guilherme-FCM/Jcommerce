@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Vendas | Detalhes</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <div th:replace="~{fragments/bootstrap :: imports}"></div>
-</head>
-<body>
-<div th:replace="~{fragments/nav :: nav}"></div>
-<div class="container">
+<div th:replace="~{fragments/header :: header}"></div>
     <h3>Venda N° <span th:text="${sale.getId}"></span></h3>
     <p>
         <strong>Cliente:</strong> <span th:text="${sale.user.name}"></span><br>
@@ -36,6 +26,4 @@
             <td th:text="${#numbers.formatCurrency(sale.total)}"></td>
         </tr>
     </table>
-</div>
-</body>
-</html>
+<div th:replace="~{fragments/footer :: footer}"></div>
