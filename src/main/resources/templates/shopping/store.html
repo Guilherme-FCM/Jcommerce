@@ -1,29 +1,17 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>Loja</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <div th:replace="~{fragments/bootstrap :: imports}"></div>
-    </head>
-    <body>
-        <div th:replace="~{fragments/nav :: nav}"></div>
-        <div class="container">
-            <h1>Faça suas Compras</h1>
+<div th:replace="~{fragments/header :: header}"></div>
+    <h1>Faça suas Compras</h1>
 
-            <div class="row row-cols-1 row-cols-md-3 g-4">
-                <div class="col" th:each="p : ${products}">
-                    <div class="card h-100">
-    <!--                    <img src="..." class="card-img-top" alt="...">-->
-                        <div class="card-body">
-                            <h5 class="card-title" th:text="${p.description}"></h5>
-                            <p class="card-text">R<span th:text="${#numbers.formatCurrency(p.price)}"></span></p>
-                            <a th:href="@{/sales/addItem/{productId}(productId=${p.id})}" class="btn btn-primary">Adicionar ao Carrinho</a>
-                        </div>
-                    </div>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col" th:each="p : ${products}">
+            <div class="card h-100">
+                <!-- <img src="..." class="card-img-top" alt="..."> -->
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${p.description}"></h5>
+                    <p class="card-text">R<span th:text="${#numbers.formatCurrency(p.price)}"></span></p>
+                    <a th:href="@{/sales/addItem/{productId}(productId=${p.id})}" class="btn btn-primary">Adicionar ao Carrinho</a>
                 </div>
             </div>
         </div>
-    </body>
-</html>
+    </div>
+<div th:replace="~{fragments/footer :: footer}"></div>
 
