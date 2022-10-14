@@ -1,33 +1,21 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>Vendas | Listagem</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <div th:replace="~{fragments/bootstrap :: imports}"></div>
-    </head>
-    <body>
-        <div th:replace="~{fragments/nav :: nav}"></div>
-        <div class="container">
-            <h1>Listagem de Vendas</h1>
-            <table class="table">
-                <thead>
-                    <tr class="table-active">
-                        <th>Id</th>
-                        <th>Cliente</th>
-                        <th>Data</th>
-                        <th>Total (R$)</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tr th:each="s : ${sales}">
-                    <td th:text="${s.id}"> </td>
-                    <td th:text="${s.user.name}"> </td>
-                    <td th:text="${#temporals.format(s.date, 'dd/MM/yyyy')}"> </td>
-                    <td th:text="${#numbers.formatCurrency(s.total)}"> </td>
-                    <td> <a class="btn btn-outline-primary" th:href="@{/sales/details/{id}(id=${s.id})}">Ver mais</a> </td>
-                </tr>
-            </table>
-        </div>
-    </body>
-</html>
+<div th:replace="~{fragments/header :: header}"></div>
+    <h1>Listagem de Vendas</h1>
+    <table class="table">
+        <thead>
+            <tr class="table-active">
+                <th>Id</th>
+                <th>Cliente</th>
+                <th>Data</th>
+                <th>Total (R$)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tr th:each="s : ${sales}">
+            <td th:text="${s.id}"> </td>
+            <td th:text="${s.user.name}"> </td>
+            <td th:text="${#temporals.format(s.date, 'dd/MM/yyyy')}"> </td>
+            <td th:text="${#numbers.formatCurrency(s.total)}"> </td>
+            <td> <a class="btn btn-outline-primary" th:href="@{/sales/details/{id}(id=${s.id})}">Ver mais</a> </td>
+        </tr>
+    </table>
+<div th:replace="~{fragments/footer :: footer}"></div>
