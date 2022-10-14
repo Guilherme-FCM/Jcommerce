@@ -1,51 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Carrinho</title>
-    <div th:replace="~{fragments/bootstrap :: imports}"></div>
-</head>
-<body>
-    <div th:replace="~{fragments/nav :: nav}"></div>
-    <div class="container">
-        <h1>Carrinho de Compras</h1>
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th scope="col">N°</th>
-                <th scope="col">Descrição</th>
-                <th scope="col">Preço Unitário (R$)</th>
-                <th scope="col">Quantidade</th>
-                <th scope="col">Total (R$)</th>
-                <th scope="col">Remover</th>
-            </tr>
-            </thead>
-            <tr scope="row" th:each="i, idx : ${session.sale.items}">
-                <td th:text="${idx.count}"> </td>
-                <td th:text="${i.product.description}"> </td>
-                <td th:text="${#numbers.formatCurrency(i.product.price)}"> </td>
-                <td class="mx-auto" width="40">
-                    <form method="post" th:action="@{/sales/updateItemAmount/{idx}(idx=${idx.index})}" th:object="${item}">
-                        <input th:name="amount" th:value="${i.amount}" type="number" class="form-control" onchange="send(this)">
-                    </form>
-                </td>
-                <td th:text="${#numbers.formatCurrency(i.total)}"></td>
-                <td><a th:href="@{/sales/removeItem/{idx}(idx=${idx.index})}" class="btn btn-outline-danger"><i class="bi bi-trash"></i></a></td>
-            </tr>
-            <tr scope="row" class="table-active">
-                <th colspan="4">Valor Final:</th>
-                <td th:text="${#numbers.formatCurrency(session.sale.total)}"></td>
-                <td></td>
-            </tr>
-        </table>
-        <form th:action="@{/sales/changeUser}" th:object="${user}" method="post">
-            <select th:name="id" class="form-select" aria-label="Selecione um Cliente" onchange="send(this)" id="selectClient">
-                <option value="0">Selecione um Usuário</option>
-                <option th:each="u : ${users}" th:value="${u.id}" th:text="${u.name}" th:selected="${u.id==session.sale.user.id}"></option>
-            </select>
-        </form>
-        <a th:href="@{/sales/finish}" class="btn btn-primary mt-3" id="finishSaleButton">Finalizar Compra</a>
-    </div>
+<div th:replace="~{fragments/header :: header}"></div>
+    <h1>Carrinho de Compras</h1>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">N°</th>
+            <th scope="col">Descrição</th>
+            <th scope="col">Preço Unitário (R$)</th>
+            <th scope="col">Quantidade</th>
+            <th scope="col">Total (R$)</th>
+            <th scope="col">Remover</th>
+        </tr>
+        </thead>
+        <tr scope="row" th:each="i, idx : ${session.sale.items}">
+            <td th:text="${idx.count}"> </td>
+            <td th:text="${i.product.description}"> </td>
+            <td th:text="${#numbers.formatCurrency(i.product.price)}"> </td>
+            <td class="mx-auto" width="40">
+                <form method="post" th:action="@{/sales/updateItemAmount/{idx}(idx=${idx.index})}" th:object="${item}">
+                    <input th:name="amount" th:value="${i.amount}" type="number" class="form-control" onchange="send(this)">
+                </form>
+            </td>
+            <td th:text="${#numbers.formatCurrency(i.total)}"></td>
+            <td><a th:href="@{/sales/removeItem/{idx}(idx=${idx.index})}" class="btn btn-outline-danger"><i class="bi bi-trash"></i></a></td>
+        </tr>
+        <tr scope="row" class="table-active">
+            <th colspan="4">Valor Final:</th>
+            <td th:text="${#numbers.formatCurrency(session.sale.total)}"></td>
+            <td></td>
+        </tr>
+    </table>
+    <form th:action="@{/sales/changeUser}" th:object="${user}" method="post">
+        <select th:name="id" class="form-select" aria-label="Selecione um Cliente" onchange="send(this)" id="selectClient">
+            <option value="0">Selecione um Usuário</option>
+            <option th:each="u : ${users}" th:value="${u.id}" th:text="${u.name}" th:selected="${u.id==session.sale.user.id}"></option>
+        </select>
+    </form>
+    <a th:href="@{/sales/finish}" class="btn btn-primary mt-3" id="finishSaleButton">Finalizar Compra</a>
+
     <script>
         function send(element){ element.parentElement.submit() }
         document.getElementById('finishSaleButton').addEventListener('click', function (event){
@@ -55,5 +46,4 @@
             }
         })
     </script>
-</body>
-</html>
+<div th:replace="~{fragments/footer :: footer}"></div>
