@@ -1,4 +1,5 @@
 <div th:replace="~{fragments/header :: header}"></div>
+<div class="container">
     <h3>Venda N° <span th:text="${sale.getId}"></span></h3>
     <p>
         <strong>Cliente:</strong> <span th:text="${sale.user.name}"></span><br>
@@ -26,4 +27,5 @@
             <td th:text="${#numbers.formatCurrency(sale.total)}"></td>
         </tr>
     </table>
+</div>
 <div th:replace="~{fragments/footer :: footer}"></div>

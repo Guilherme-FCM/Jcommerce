@@ -1,4 +1,5 @@
 <div th:replace="~{fragments/header :: header}"></div>
+<div class="container">
     <div class="d-flex justify-content-between">
         <h1 class="align-self-center">Listagem de Produtos</h1>
         <a class="btn btn-primary align-self-center" href="/products/form">Criar</a>
@@ -21,4 +22,5 @@
             <td> <a class="btn btn-outline-danger" onclick="return window.confirm('Tem certeza que deseja excluir este registro?')"  th:href="@{/products/remove/{id}(id=${p.id})}"><i class="bi bi-trash"></i></a> </td>
         </tr>
     </table>
+</div>
 <div th:replace="~{fragments/footer :: footer}"></div>

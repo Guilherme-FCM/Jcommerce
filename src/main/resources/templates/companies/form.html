@@ -1,4 +1,5 @@
 <div th:replace="~{fragments/header :: header}"></div>
+<div class="container">
     <h1>Cadastro de Empresas</h1>
     <form th:action="${company.id == null} ? @{/companies/save} : @{/companies/update}" th:object="${company}" method="post">
         <input type="hidden" th:field="*{id}">
@@ -16,5 +17,6 @@
             <button class="btn btn-primary" type="submit">Enviar</button>
         </div>
     </form>
+</div>
 <div th:replace="~{fragments/footer :: footer}"></div>
 
