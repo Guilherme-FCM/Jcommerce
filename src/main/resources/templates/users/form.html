@@ -6,10 +6,12 @@
         <div class="form-group">
             <label for="name">Nome:</label>
             <input id="name" class="form-control" th:field="*{name}">
+            <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></label>
         </div>
         <div class="form-group">
             <label for="cpf">CPF:</label>
             <input id="cpf" class="form-control" th:field="*{cpf}" placeholder="Ex: XXX.XXX.XXX-XX">
+            <label th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}"></label>
         </div>
         <div class="d-flex justify-content-between mt-3">
             <a class="btn btn-outline-primary" href="/users">Voltar para a Listagem</a>
