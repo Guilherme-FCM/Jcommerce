@@ -4,6 +4,8 @@
  */
 package br.edu.ifto.model.entity;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -16,6 +18,7 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 public class User extends Person {
+    @CPF
     private String cpf;
 
     @OneToMany(mappedBy = "user")
