@@ -10,11 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
 
 /**
  *
@@ -34,12 +37,13 @@ public class CompanyController {
     }
 
     @GetMapping("/form")
-    public String form(Company company){
-        return "/companies/form";
+    public ModelAndView form(Company company){
+        return new ModelAndView("/companies/form");
     }
 
     @PostMapping("/save")
-    public ModelAndView save(Company company){
+    public ModelAndView save(@Valid Company company, BindingResult result){
+        if(result.hasErrors()) return form(company);
         repository.save(company);
         return new ModelAndView("redirect:/companies");
     }
@@ -51,7 +55,8 @@ public class CompanyController {
     }
 
     @PostMapping("/update")
-    public ModelAndView update(Company company){
+    public ModelAndView update(@Valid Company company, BindingResult result){
+        if(result.hasErrors()) return form(company);
         repository.save(company);
         return new ModelAndView("redirect:/companies");
     }
