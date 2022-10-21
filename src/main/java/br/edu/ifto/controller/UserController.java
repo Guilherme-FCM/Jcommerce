@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,12 +36,13 @@ public class UserController {
     }
 
     @GetMapping("/form")
-    public String form(User user){
-        return "/users/form";
+    public ModelAndView form(User user){
+        return new ModelAndView("/users/form");
     }
 
     @PostMapping("/save")
-    public ModelAndView save(User user){
+    public ModelAndView save(@Validated User user, BindingResult result){
+        if(result.hasErrors()) return form(user);
         repository.save(user);
         return new ModelAndView("redirect:/users");
     }
@@ -51,7 +54,8 @@ public class UserController {
     }
 
     @PostMapping("/update")
-    public ModelAndView update(User user){
+    public ModelAndView update(@Validated User user, BindingResult result){
+        if(result.hasErrors()) return form(user);
         repository.save(user);
         return new ModelAndView("redirect:/users");
     }
