@@ -6,10 +6,12 @@
         <div class="form-group">
             <label for="description">Descrição:</label>
             <input id="description" class="form-control" th:field="*{description}">
+            <label th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></label>
         </div>
         <div class="form-group">
             <label for="price">Preço (R$):</label>
             <input id="price" class="form-control" th:field="*{price}" type="number" placeholder="R$: 0,00">
+            <label th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></label>
         </div>
         <div class="d-flex justify-content-between mt-3">
             <a class="btn btn-outline-primary" href="/products">Voltar para a Listagem</a>
