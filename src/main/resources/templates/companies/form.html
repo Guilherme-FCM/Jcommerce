@@ -7,10 +7,12 @@
         <div class="form-group">
             <label for="name">Nome:</label>
             <input id="name" class="form-control" th:field="*{name}">
+            <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></label>
         </div>
         <div class="form-group">
             <label for="cnpj">CNPJ:</label>
             <input id="cnpj" class="form-control" th:field="*{cnpj}" placeholder="Ex: XX.XXX.XXX/0001-XX">
+            <label th:if="${#fields.hasErrors('cnpj')}" th:errors="*{cnpj}"></label>
         </div>
         <div class="d-flex justify-content-between mt-3">
             <a class="btn btn-outline-primary" href="/companies">Voltar para a Listagem</a>
