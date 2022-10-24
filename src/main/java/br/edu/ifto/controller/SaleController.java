@@ -48,38 +48,38 @@ public class SaleController {
     @GetMapping("/details/{id}")
     public ModelAndView details(ModelMap model, @PathVariable Long id){
         model.addAttribute("sale", repository.findById(id).get());
-        return new ModelAndView("sales/details");
+        return new ModelAndView("/sales/details");
     }
 
     @GetMapping("addItem/{productId}")
     public ModelAndView addItem(@PathVariable Long productId){
         Product product = productRepository.findById(productId).get();
         sale.addItem( new Item(product) );
-        return new ModelAndView("redirect:/sales/store");
+        return new ModelAndView("redirect:/store");
     }
 
     @GetMapping("removeItem/{itemIndex}")
     public ModelAndView removeItem(@PathVariable int itemIndex){
         sale.getItems().remove(itemIndex);
-        return new ModelAndView("redirect:/sales/cart");
+        return new ModelAndView("redirect:/store/cart");
     }
 
     @PostMapping("updateItemAmount/{itemIndex}")
     public ModelAndView updateItem(@PathVariable int itemIndex, Item item){
         sale.getItems().get(itemIndex).setAmount(item.getAmount());
-        return new ModelAndView("redirect:/sales/cart");
+        return new ModelAndView("redirect:/store/cart");
     }
 
     @PostMapping("changeUser")
     public ModelAndView changeUser(User user){
         sale.setUser(user);
-        return new ModelAndView("redirect:/sales/cart");
+        return new ModelAndView("redirect:/store/cart");
     }
 
     @GetMapping("finish")
     public ModelAndView finish(HttpSession session){
         repository.save(sale);
         session.invalidate();
-        return new ModelAndView("redirect:/sales/store");
+        return new ModelAndView("redirect:/store");
     }
 }

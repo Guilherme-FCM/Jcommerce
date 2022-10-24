@@ -24,12 +24,12 @@ public class StoreController {
     @GetMapping
     public ModelAndView store(ModelMap model){
         model.addAttribute("products", productRepository.findAll());
-        return new ModelAndView("/shopping/store", model);
+        return new ModelAndView("/store/index", model);
     }
 
     @GetMapping("cart")
     public ModelAndView cart(ModelMap model, Item item){
         model.addAttribute("users", userRepository.findAll());
-        return new ModelAndView("/shopping/cart", model);
+        return new ModelAndView("/store/cart", model);
     }
 }
