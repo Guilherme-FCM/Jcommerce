@@ -136,3 +136,7 @@ Não será implementado ao sistema a acessibilidade para usuários com deficiên
 
 ### **Story Mapping e Cronograma**
 ![image](https://user-images.githubusercontent.com/54874044/194129226-1f8506db-889c-44da-adb1-38f3d406021f.png)
+
+### **Product Backlog**
+![image](https://user-images.githubusercontent.com/54874044/197667258-aef89fca-4730-4aad-b9a4-49c0c63942af.png)
+
