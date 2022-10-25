@@ -140,3 +140,21 @@ Não será implementado ao sistema a acessibilidade para usuários com deficiên
 ### **Product Backlog**
 ![image](https://user-images.githubusercontent.com/54874044/197667258-aef89fca-4730-4aad-b9a4-49c0c63942af.png)
 
+### User Story
+
+> 🔐 Como usuário, gostaria de **efetuar login** no sistema utilizando meu e-mail e senha cadastrados, para que eu possa visualizar os produtos à venda e efetuar minhas compras.
+> - O cliente somente poderá efetuar login após efetuar seu cadastro na loja;
+> - O login aceita somente dados válidos de e-mail e senha compatível;
+> - A tela de login deve possibilitar que o usuário acesse um link para alteração de senha, caso a esqueça.
+---
+> 🛒 Como usuário, desejo adicionar produtos à venda ao meu **carrinho de compras**, para armazenar os produtos que desejo finalizar a compra posteriormente.
+> - É possível adicionar ao carrinho somente os produtos que estão cadastrados no sistema;
+> - É possível adicionar ao carrinho somente os produtos que possuem em estoque;
+> - Ao adicionar o produto ao carrinho, ele deve possuir automaticamente uma quantidade igual a 1, sendo possível alterar esta quantidade dentro do carrinho de compras.
+---
+> 💳 Como usuário, desejo **efetivar a compra** dos produtos adicionados ao carrinho, cadastrando dados do meu cartão, para aquisição dos produtos informados.
+> - É possível apenas adicionar formas de pagamento válidas ao sistema;
+> - Deve-se encaminhar um e-mail ao cliente confirmando a efetivação da compra.
+---
+> 📋 Como administrador, gostaria de **cadastrar os funcionários** da loja, para possibilitar acesso destes funcionários ao sistema.
+> - O cadastro de funcionários deve gerar um usuário no sistema com nível de acesso mais avançado que os demais clientes;
