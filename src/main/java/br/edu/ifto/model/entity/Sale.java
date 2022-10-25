@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.*;
 
@@ -28,7 +27,7 @@ public class Sale implements Serializable {
     private Long id;
     
     private LocalDate date = LocalDate.now();
-    
+
     @OneToMany(mappedBy = "sale", cascade = CascadeType.PERSIST)
     private List<Item> items = new ArrayList();
 
