@@ -59,9 +59,8 @@ public class CartController {
     }
 
     @PostMapping("updateItemAmount/{itemIndex}")
-    public ModelAndView updateItem(@PathVariable int itemIndex, @Validated Item item, BindingResult result, RedirectAttributes tributes) {
-        if (result.hasErrors())
-            tributes.addFlashAttribute("error", "A quantidade deve ser maior ou igual à 1");
+    public ModelAndView updateItem(@PathVariable int itemIndex, @Validated Item item, BindingResult result) {
+        if (result.hasErrors()) return cart(new ModelMap(), item);
         else sale.getItems().get(itemIndex).setAmount(item.getAmount());
         return new ModelAndView("redirect:/cart");
     }
