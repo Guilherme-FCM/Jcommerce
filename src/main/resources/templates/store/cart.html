@@ -1,6 +1,7 @@
 <div th:replace="~{fragments/header :: header}"></div>
 <div class="container">
     <h1>Carrinho de Compras</h1>
+    <div class="alert alert-danger" role="alert" th:if="${!#strings.isEmpty(error)}" th:text="${error}"></div>
     <table class="table table-hover">
         <thead>
         <tr>
@@ -32,11 +33,11 @@
     </table>
     <form th:action="@{/sales/changeUser}" th:object="${user}" method="post">
         <select th:name="id" class="form-select" aria-label="Selecione um Cliente" onchange="send(this)" id="selectClient">
-            <option value="0">Selecione um Usuário</option>
+            <option value="0" th:if="${session.sale.user.id == null}">Selecione um Usuário</option>
             <option th:each="u : ${users}" th:value="${u.id}" th:text="${u.name}" th:selected="${u.id==session.sale.user.id}"></option>
         </select>
     </form>
-    <a th:href="@{/sales/finish}" class="btn btn-primary mt-3" id="finishSaleButton">Finalizar Compra</a>
+    <a th:href="@{/sales/finish}" class="btn btn-primary mt-2" id="finishSaleButton">Finalizar Compra</a>
 
     <script>
         function send(element){ element.parentElement.submit() }
