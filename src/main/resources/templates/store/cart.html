@@ -17,7 +17,7 @@
             <td th:text="${idx.count}"> </td>
             <td th:text="${i.product.description}"> </td>
             <td th:text="${#numbers.formatCurrency(i.product.price)}"> </td>
-            <td class="mx-auto" width="40">
+            <td class="mx-auto">
                 <form method="post" th:action="@{/cart/updateItemAmount/{idx}(idx=${idx.index})}" th:object="${item}">
                     <input th:name="amount" th:value="${i.amount}" type="number" class="form-control" onchange="send(this)">
                 </form>
