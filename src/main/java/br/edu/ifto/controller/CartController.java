@@ -10,11 +10,14 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @Transactional
@@ -38,10 +41,14 @@ public class CartController {
     }
 
     @PostMapping("addItem")
-    public ModelAndView addItem(Item item) {
-        Long productId = item.getProduct().getId();
-        item.setProduct( productRepository.findById(productId).get() );
-        sale.addItem(item);
+    public ModelAndView addItem(@Validated Item item, BindingResult result, RedirectAttributes tributes) {
+        if (result.hasErrors())
+            tributes.addFlashAttribute("error", "Não foi possível adicionar este produto ao carrinho");
+        else {
+            Long productId = item.getProduct().getId();
+            item.setProduct(productRepository.findById(productId).get());
+            sale.addItem(item);
+        }
         return new ModelAndView("redirect:/store");
     }
 
@@ -52,8 +59,10 @@ public class CartController {
     }
 
     @PostMapping("updateItemAmount/{itemIndex}")
-    public ModelAndView updateItem(@PathVariable int itemIndex, Item item) {
-        sale.getItems().get(itemIndex).setAmount(item.getAmount());
+    public ModelAndView updateItem(@PathVariable int itemIndex, @Validated Item item, BindingResult result, RedirectAttributes tributes) {
+        if (result.hasErrors())
+            tributes.addFlashAttribute("error", "A quantidade deve ser maior ou igual à 1");
+        else sale.getItems().get(itemIndex).setAmount(item.getAmount());
         return new ModelAndView("redirect:/cart");
     }
 }
