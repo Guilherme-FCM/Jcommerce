@@ -29,7 +29,6 @@ public class ConfigurationSpringMvc implements WebMvcConfigurer{
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addRedirectViewController("/", "/store");
         registry.addRedirectViewController("/home", "/store");
-        registry.addRedirectViewController("/cart", "/store/cart");
     }
 
 }

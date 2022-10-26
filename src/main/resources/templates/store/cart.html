@@ -17,12 +17,12 @@
             <td th:text="${i.product.description}"> </td>
             <td th:text="${#numbers.formatCurrency(i.product.price)}"> </td>
             <td class="mx-auto" width="40">
-                <form method="post" th:action="@{/sales/updateItemAmount/{idx}(idx=${idx.index})}" th:object="${item}">
+                <form method="post" th:action="@{/cart/updateItemAmount/{idx}(idx=${idx.index})}" th:object="${item}">
                     <input th:name="amount" th:value="${i.amount}" type="number" class="form-control" onchange="send(this)">
                 </form>
             </td>
             <td th:text="${#numbers.formatCurrency(i.total)}"></td>
-            <td><a th:href="@{/sales/removeItem/{idx}(idx=${idx.index})}" class="btn btn-outline-danger"><i class="bi bi-trash"></i></a></td>
+            <td><a th:href="@{/cart/removeItem/{idx}(idx=${idx.index})}" class="btn btn-outline-danger"><i class="bi bi-trash"></i></a></td>
         </tr>
         <tr scope="row" class="table-active">
             <th colspan="4">Valor Final:</th>
