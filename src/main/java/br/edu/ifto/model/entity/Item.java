@@ -6,6 +6,7 @@ package br.edu.ifto.model.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 
 /**
  *
@@ -18,7 +19,8 @@ public class Item implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
-    
+
+    @Min(1)
     private int amount;
     
     @OneToOne
