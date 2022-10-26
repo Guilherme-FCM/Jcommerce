@@ -4,11 +4,8 @@
  */
 package br.edu.ifto.controller;
 
-import br.edu.ifto.model.entity.Item;
-import br.edu.ifto.model.entity.Product;
 import br.edu.ifto.model.entity.Sale;
 import br.edu.ifto.model.entity.User;
-import br.edu.ifto.model.repository.ProductRepository;
 import br.edu.ifto.model.repository.SaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -34,9 +31,6 @@ public class SaleController {
     SaleRepository repository;
 
     @Autowired
-    ProductRepository productRepository;
-
-    @Autowired
     Sale sale;
 
     @GetMapping
@@ -51,29 +45,10 @@ public class SaleController {
         return new ModelAndView("/sales/details");
     }
 
-    @GetMapping("addItem/{productId}")
-    public ModelAndView addItem(@PathVariable Long productId){
-        Product product = productRepository.findById(productId).get();
-        sale.addItem( new Item(product) );
-        return new ModelAndView("redirect:/store");
-    }
-
-    @GetMapping("removeItem/{itemIndex}")
-    public ModelAndView removeItem(@PathVariable int itemIndex){
-        sale.getItems().remove(itemIndex);
-        return new ModelAndView("redirect:/store/cart");
-    }
-
-    @PostMapping("updateItemAmount/{itemIndex}")
-    public ModelAndView updateItem(@PathVariable int itemIndex, Item item){
-        sale.getItems().get(itemIndex).setAmount(item.getAmount());
-        return new ModelAndView("redirect:/store/cart");
-    }
-
     @PostMapping("changeUser")
     public ModelAndView changeUser(User user){
         sale.setUser(user);
-        return new ModelAndView("redirect:/store/cart");
+        return new ModelAndView("redirect:/cart");
     }
 
     @GetMapping("finish")
