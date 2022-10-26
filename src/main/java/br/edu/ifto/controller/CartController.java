@@ -37,10 +37,11 @@ public class CartController {
         return new ModelAndView("/store/cart", model);
     }
 
-    @GetMapping("addItem/{productId}")
-    public ModelAndView addItem(@PathVariable Long productId) {
-        Product product = productRepository.findById(productId).get();
-        sale.addItem(new Item(product));
+    @PostMapping("addItem")
+    public ModelAndView addItem(Item item) {
+        Long productId = item.getProduct().getId();
+        item.setProduct( productRepository.findById(productId).get() );
+        sale.addItem(item);
         return new ModelAndView("redirect:/store");
     }
 

@@ -1,5 +1,6 @@
 package br.edu.ifto.controller;
 
+import br.edu.ifto.model.entity.Item;
 import br.edu.ifto.model.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +18,7 @@ public class StoreController {
     ProductRepository productRepository;
 
     @GetMapping
-    public ModelAndView store(ModelMap model){
+    public ModelAndView store(ModelMap model, Item item){
         model.addAttribute("products", productRepository.findAll());
         return new ModelAndView("/store/index", model);
     }
