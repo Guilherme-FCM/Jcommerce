@@ -40,7 +40,7 @@ public class CartController {
         return new ModelAndView("/store/cart", model);
     }
 
-    @PostMapping("addItem")
+    @PostMapping("/addItem")
     public ModelAndView addItem(@Validated Item item, BindingResult result, RedirectAttributes tributes) {
         if (result.hasErrors())
             tributes.addFlashAttribute("error", "Não foi possível adicionar este produto ao carrinho");
@@ -52,13 +52,13 @@ public class CartController {
         return new ModelAndView("redirect:/store");
     }
 
-    @GetMapping("removeItem/{itemIndex}")
+    @GetMapping("/removeItem/{itemIndex}")
     public ModelAndView removeItem(@PathVariable int itemIndex) {
         sale.getItems().remove(itemIndex);
         return new ModelAndView("redirect:/cart");
     }
 
-    @PostMapping("updateItemAmount/{itemIndex}")
+    @PostMapping("/updateItemAmount/{itemIndex}")
     public ModelAndView updateItem(@PathVariable int itemIndex, @Validated Item item, BindingResult result) {
         if (result.hasErrors()) return cart(new ModelMap(), item);
         else sale.getItems().get(itemIndex).setAmount(item.getAmount());

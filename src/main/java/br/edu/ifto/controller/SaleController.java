@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 
@@ -45,16 +46,20 @@ public class SaleController {
         return new ModelAndView("/sales/details");
     }
 
-    @PostMapping("changeUser")
+    @PostMapping("/changeUser")
     public ModelAndView changeUser(User user){
         sale.setUser(user);
         return new ModelAndView("redirect:/cart");
     }
 
-    @GetMapping("finish")
-    public ModelAndView finish(HttpSession session){
-        repository.save(sale);
-        session.invalidate();
-        return new ModelAndView("redirect:/store");
+    @GetMapping("/finish")
+    public ModelAndView finish(HttpSession session, RedirectAttributes attributes){
+        if (sale.getItems().size() == 0)
+            attributes.addFlashAttribute("error", "A venda não pode ser finalizada com o carrinho vazio.");
+        else {
+            repository.save(sale);
+            session.invalidate();
+        }
+        return new ModelAndView("redirect:/cart");
     }
 }
