@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.validation.constraints.NotBlank;
+
 import org.hibernate.annotations.GenericGenerator;
 
 /**
@@ -23,7 +25,9 @@ public abstract class Person {
     @GeneratedValue(generator = "inc")
     @GenericGenerator(name = "inc", strategy = "increment")
     private Long id;
-    private String name; 
+
+    @NotBlank
+    private String name;
 
     public Long getId() {
         return id;

@@ -4,8 +4,11 @@
  */
 package br.edu.ifto.model.entity;
 
+import org.hibernate.validator.constraints.br.CNPJ;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 /**
  *
@@ -14,6 +17,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "companies")
 public class Company extends Person {
+    @CNPJ
     private String cnpj;
 
     public String getCnpj() {

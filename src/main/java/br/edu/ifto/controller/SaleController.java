@@ -4,13 +4,9 @@
  */
 package br.edu.ifto.controller;
 
-import br.edu.ifto.model.entity.Item;
-import br.edu.ifto.model.entity.Product;
 import br.edu.ifto.model.entity.Sale;
 import br.edu.ifto.model.entity.User;
-import br.edu.ifto.model.repository.ProductRepository;
 import br.edu.ifto.model.repository.SaleRepository;
-import br.edu.ifto.model.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -18,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 
@@ -35,12 +32,6 @@ public class SaleController {
     SaleRepository repository;
 
     @Autowired
-    ProductRepository productRepository;
-
-    @Autowired
-    UserRepository userRepository;
-
-    @Autowired
     Sale sale;
 
     @GetMapping
@@ -52,50 +43,23 @@ public class SaleController {
     @GetMapping("/details/{id}")
     public ModelAndView details(ModelMap model, @PathVariable Long id){
         model.addAttribute("sale", repository.findById(id).get());
-        return new ModelAndView("sales/details");
+        return new ModelAndView("/sales/details");
     }
 
-    @GetMapping("addItem/{productId}")
-    public ModelAndView addItem(@PathVariable Long productId){
-        Product product = productRepository.findById(productId).get();
-        sale.addItem( new Item(product) );
-        return new ModelAndView("redirect:/sales/store");
-    }
-
-    @GetMapping("removeItem/{itemIndex}")
-    public ModelAndView removeItem(@PathVariable int itemIndex){
-        sale.getItems().remove(itemIndex);
-        return new ModelAndView("redirect:/sales/cart");
-    }
-
-    @PostMapping("updateItemAmount/{itemIndex}")
-    public ModelAndView updateItem(@PathVariable int itemIndex, Item item){
-        sale.getItems().get(itemIndex).setAmount(item.getAmount());
-        return new ModelAndView("redirect:/sales/cart");
-    }
-
-    @GetMapping("store")
-    public ModelAndView store(ModelMap model){
-        model.addAttribute("products", productRepository.findAll());
-        return new ModelAndView("/shopping/store", model);
-    }
-
-    @GetMapping("cart")
-    public ModelAndView cart(ModelMap model, Item item){
-        model.addAttribute("users", userRepository.findAll());
-        return new ModelAndView("/shopping/cart", model);
-    }
-
-    @PostMapping("changeUser")
+    @PostMapping("/changeUser")
     public ModelAndView changeUser(User user){
         sale.setUser(user);
-        return new ModelAndView("redirect:/sales/cart");
+        return new ModelAndView("redirect:/cart");
     }
 
-    @GetMapping("finish")
-    public ModelAndView finish(HttpSession session){
-        repository.save(sale);
-        session.invalidate();
-        return new ModelAndView("redirect:/sales/store");
+    @GetMapping("/finish")
+    public ModelAndView finish(HttpSession session, RedirectAttributes attributes){
+        if (sale.getItems().size() == 0)
+            attributes.addFlashAttribute("error", "A venda não pode ser finalizada com o carrinho vazio.");
+        else {
+            repository.save(sale);
+            session.invalidate();
+        }
+        return new ModelAndView("redirect:/cart");
     }
 }

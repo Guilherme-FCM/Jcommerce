@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,12 +37,13 @@ public class ProductController {
     }
     
     @GetMapping("/form")
-    public String form(Product product){
-        return "/products/form";
+    public ModelAndView form(Product product){
+        return new ModelAndView("/products/form");
     }
     
     @PostMapping("/save")
-    public ModelAndView save(Product product){
+    public ModelAndView save(@Validated Product product, BindingResult result){
+        if(result.hasErrors()) return form(product);
         repository.save(product);
         return new ModelAndView("redirect:/products");
     }
@@ -69,7 +72,8 @@ public class ProductController {
     }
 
     @PostMapping("/update")
-    public ModelAndView update(Product product) {
+    public ModelAndView update(@Validated Product product, BindingResult result) {
+        if(result.hasErrors()) return form(product);
         repository.save(product);
         return new ModelAndView("redirect:/products");
     }

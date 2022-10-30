@@ -1,5 +1,8 @@
 <div th:replace="~{fragments/header :: header}"></div>
+<div class="container">
     <h1>Carrinho de Compras</h1>
+    <div class="alert alert-danger" th:errors="${item.*}"></div>
+    <div class="alert alert-danger" th:if="${!#strings.isEmpty(error)}" th:text="${error}"></div>
     <table class="table table-hover">
         <thead>
         <tr>
@@ -15,13 +18,13 @@
             <td th:text="${idx.count}"> </td>
             <td th:text="${i.product.description}"> </td>
             <td th:text="${#numbers.formatCurrency(i.product.price)}"> </td>
-            <td class="mx-auto" width="40">
-                <form method="post" th:action="@{/sales/updateItemAmount/{idx}(idx=${idx.index})}" th:object="${item}">
+            <td class="mx-auto">
+                <form method="post" th:action="@{/cart/updateItemAmount/{idx}(idx=${idx.index})}" th:object="${item}">
                     <input th:name="amount" th:value="${i.amount}" type="number" class="form-control" onchange="send(this)">
                 </form>
             </td>
             <td th:text="${#numbers.formatCurrency(i.total)}"></td>
-            <td><a th:href="@{/sales/removeItem/{idx}(idx=${idx.index})}" class="btn btn-outline-danger"><i class="bi bi-trash"></i></a></td>
+            <td><a th:href="@{/cart/removeItem/{idx}(idx=${idx.index})}" class="btn btn-outline-danger"><i class="bi bi-trash"></i></a></td>
         </tr>
         <tr scope="row" class="table-active">
             <th colspan="4">Valor Final:</th>
@@ -31,11 +34,11 @@
     </table>
     <form th:action="@{/sales/changeUser}" th:object="${user}" method="post">
         <select th:name="id" class="form-select" aria-label="Selecione um Cliente" onchange="send(this)" id="selectClient">
-            <option value="0">Selecione um Usuário</option>
+            <option value="0" th:if="${session.sale.user.id == null}">Selecione um Usuário</option>
             <option th:each="u : ${users}" th:value="${u.id}" th:text="${u.name}" th:selected="${u.id==session.sale.user.id}"></option>
         </select>
     </form>
-    <a th:href="@{/sales/finish}" class="btn btn-primary mt-3" id="finishSaleButton">Finalizar Compra</a>
+    <a th:href="@{/sales/finish}" class="btn btn-primary mt-2" id="finishSaleButton">Finalizar Compra</a>
 
     <script>
         function send(element){ element.parentElement.submit() }
@@ -46,4 +49,5 @@
             }
         })
     </script>
+</div>
 <div th:replace="~{fragments/footer :: footer}"></div>
