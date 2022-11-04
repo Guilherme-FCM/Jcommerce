@@ -56,8 +56,9 @@ public class ProductController {
      * @PathVariable é utilizado quando o valor da variável é passada diretamente na URL
      */
     @GetMapping("/remove/{id}")
-    public ModelAndView remove(@PathVariable("id") Long id){
+    public ModelAndView remove(@PathVariable("id") Long id, RedirectAttributes attributes){
         repository.deleteById(id);
+        attributes.addFlashAttribute("success", "Produto removido com sucesso.");
         return new ModelAndView("redirect:/products");
     }
 
