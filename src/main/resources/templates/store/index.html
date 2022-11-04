@@ -2,6 +2,7 @@
 <div class="container">
     <h1>Faça suas Compras</h1>
     <div class="alert alert-danger" role="alert" th:if="${!#strings.isEmpty(error)}" th:text="${error}"></div>
+    <div class="alert alert-success" role="alert" th:if="${!#strings.isEmpty(success)}" th:text="${success}"></div>
     <div class="row row-cols-1 row-cols-md-3 g-4">
         <div class="col" th:each="p : ${products}">
             <div class="card h-100">
