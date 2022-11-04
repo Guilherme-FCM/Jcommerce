@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 
@@ -42,9 +43,10 @@ public class CompanyController {
     }
 
     @PostMapping("/save")
-    public ModelAndView save(@Valid Company company, BindingResult result){
+    public ModelAndView save(@Valid Company company, BindingResult result, RedirectAttributes attributes){
         if(result.hasErrors()) return form(company);
         repository.save(company);
+        attributes.addFlashAttribute("success", "Empresa " + company.getName() + " cadastrada com sucesso.");
         return new ModelAndView("redirect:/companies");
     }
 
