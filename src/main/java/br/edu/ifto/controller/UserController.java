@@ -64,8 +64,9 @@ public class UserController {
     }
 
     @GetMapping("/remove/{id}")
-    public ModelAndView remove(@PathVariable Long id){
+    public ModelAndView remove(@PathVariable Long id, RedirectAttributes attributes){
         repository.deleteById(id);
+        attributes.addFlashAttribute("success", "Usuário removido com sucesso.");
         return new ModelAndView("redirect:/users");
     }
 }
