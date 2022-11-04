@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -41,9 +42,10 @@ public class UserController {
     }
 
     @PostMapping("/save")
-    public ModelAndView save(@Validated User user, BindingResult result){
+    public ModelAndView save(@Validated User user, BindingResult result, RedirectAttributes attributes){
         if(result.hasErrors()) return form(user);
         repository.save(user);
+        attributes.addFlashAttribute("success", "Usuário " + user.getName() + " cadastrado com sucesso.");
         return new ModelAndView("redirect:/users");
     }
 
