@@ -75,9 +75,10 @@ public class ProductController {
     }
 
     @PostMapping("/update")
-    public ModelAndView update(@Validated Product product, BindingResult result) {
+    public ModelAndView update(@Validated Product product, BindingResult result, RedirectAttributes attributes) {
         if(result.hasErrors()) return form(product);
         repository.save(product);
+        attributes.addFlashAttribute("success", "Produto " + product.getDescription() + " atualizado com sucesso.");
         return new ModelAndView("redirect:/products");
     }
 }
