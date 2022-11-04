@@ -3,6 +3,7 @@
     <h1>Carrinho de Compras</h1>
     <div class="alert alert-danger" th:errors="${item.*}"></div>
     <div class="alert alert-danger" th:if="${!#strings.isEmpty(error)}" th:text="${error}"></div>
+    <div class="alert alert-success" th:if="${!#strings.isEmpty(success)}" th:text="${success}"></div>
     <table class="table table-hover">
         <thead>
         <tr>
