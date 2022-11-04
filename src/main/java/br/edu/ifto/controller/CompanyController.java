@@ -57,9 +57,10 @@ public class CompanyController {
     }
 
     @PostMapping("/update")
-    public ModelAndView update(@Valid Company company, BindingResult result){
+    public ModelAndView update(@Valid Company company, BindingResult result, RedirectAttributes attributes){
         if(result.hasErrors()) return form(company);
         repository.save(company);
+        attributes.addFlashAttribute("success", "Empresa " + company.getName() + " atualizada com sucesso.");
         return new ModelAndView("redirect:/companies");
     }
 
