@@ -56,9 +56,10 @@ public class UserController {
     }
 
     @PostMapping("/update")
-    public ModelAndView update(@Validated User user, BindingResult result){
+    public ModelAndView update(@Validated User user, BindingResult result, RedirectAttributes attributes){
         if(result.hasErrors()) return form(user);
         repository.save(user);
+        attributes.addFlashAttribute("success", "Usuário " + user.getName() + " atualizado com sucesso.");
         return new ModelAndView("redirect:/users");
     }
 
