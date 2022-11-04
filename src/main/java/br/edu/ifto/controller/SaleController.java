@@ -59,7 +59,8 @@ public class SaleController {
         else {
             repository.save(sale);
             session.invalidate();
+            attributes.addFlashAttribute("success", "Venda realizada com sucesso.");
         }
-        return new ModelAndView("redirect:/cart");
+        return new ModelAndView("redirect:/store");
     }
 }
