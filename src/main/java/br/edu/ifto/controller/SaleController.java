@@ -57,7 +57,10 @@ public class SaleController {
     public ModelAndView finish(HttpSession session, RedirectAttributes attributes){
         if (sale.getItems().size() == 0)
             attributes.addFlashAttribute("error", "A venda não pode ser finalizada com o carrinho vazio.");
-        else {
+        else if (sale.getUser().getId() == null) {
+            attributes.addFlashAttribute("error", "Selecione um usuário para finalizar a venda.");
+            return new ModelAndView("redirect:/cart");
+        } else {
             repository.save(sale);
             session.invalidate();
             attributes.addFlashAttribute("success", "Venda realizada com sucesso.");
