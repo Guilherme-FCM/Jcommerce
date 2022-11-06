@@ -2,7 +2,14 @@
 <div class="container">
     <h1>Carrinho de Compras</h1>
     <div class="alert alert-danger" th:errors="${item.*}"></div>
-    <div class="alert alert-danger" th:if="${!#strings.isEmpty(error)}" th:text="${error}"></div>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${!#strings.isEmpty(error)}">
+        <span th:text="${error}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id="errorAlertButton"></button>
+    </div>
+    <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${!#strings.isEmpty(success)}">
+        <span th:text="${success}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id="successAlertButton"></button>
+    </div>
     <table class="table table-hover">
         <thead>
         <tr>
@@ -39,15 +46,13 @@
         </select>
     </form>
     <a th:href="@{/sales/finish}" class="btn btn-primary mt-2" id="finishSaleButton">Finalizar Compra</a>
-
-    <script>
-        function send(element){ element.parentElement.submit() }
-        document.getElementById('finishSaleButton').addEventListener('click', function (event){
-            if (document.getElementById("selectClient").value === '0') {
-                event.preventDefault()
-                alert("Selecione um cliente antes de finalizar a venda.")
-            }
-        })
-    </script>
 </div>
+<script>
+    function send(element){ element.parentElement.submit() }
+
+    setTimeout(() => {
+        document.getElementById('successAlertButton').click()
+        document.getElementById('errorAlertButton').click()
+    }, 5000)
+</script>
 <div th:replace="~{fragments/footer :: footer}"></div>

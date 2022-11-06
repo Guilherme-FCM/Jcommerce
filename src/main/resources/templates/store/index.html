@@ -1,7 +1,14 @@
 <div th:replace="~{fragments/header :: header}"></div>
 <div class="container">
     <h1>Faça suas Compras</h1>
-    <div class="alert alert-danger" role="alert" th:if="${!#strings.isEmpty(error)}" th:text="${error}"></div>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${!#strings.isEmpty(error)}">
+        <span th:text="${error}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id="errorAlertButton"></button>
+    </div>
+    <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${!#strings.isEmpty(success)}">
+        <span th:text="${success}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id="successAlertButton"></button>
+    </div>
     <div class="row row-cols-1 row-cols-md-3 g-4">
         <div class="col" th:each="p : ${products}">
             <div class="card h-100">
@@ -20,5 +27,11 @@
         </div>
     </div>
 </div>
+<script>
+    setTimeout(() => {
+        document.getElementById('successAlertButton').click()
+        document.getElementById('errorAlertButton').click()
+    }, 5000)
+</script>
 <div th:replace="~{fragments/footer :: footer}"></div>
 

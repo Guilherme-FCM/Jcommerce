@@ -41,20 +41,22 @@ public class CartController {
     }
 
     @PostMapping("/addItem")
-    public ModelAndView addItem(@Validated Item item, BindingResult result, RedirectAttributes tributes) {
+    public ModelAndView addItem(@Validated Item item, BindingResult result, RedirectAttributes attributes) {
         if (result.hasErrors())
-            tributes.addFlashAttribute("error", "Não foi possível adicionar este produto ao carrinho");
+            attributes.addFlashAttribute("error", "Não foi possível adicionar este produto ao carrinho");
         else {
             Long productId = item.getProduct().getId();
             item.setProduct(productRepository.findById(productId).get());
             sale.addItem(item);
+            attributes.addFlashAttribute("success", item.getProduct().getDescription() + " adicionado ao carrinho");
         }
         return new ModelAndView("redirect:/store");
     }
 
     @GetMapping("/removeItem/{itemIndex}")
-    public ModelAndView removeItem(@PathVariable int itemIndex) {
+    public ModelAndView removeItem(@PathVariable int itemIndex, RedirectAttributes attributes) {
         sale.getItems().remove(itemIndex);
+        attributes.addFlashAttribute("success", "Item removido do carrinho");
         return new ModelAndView("redirect:/cart");
     }
 

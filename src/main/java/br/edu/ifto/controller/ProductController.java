@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -42,9 +43,10 @@ public class ProductController {
     }
     
     @PostMapping("/save")
-    public ModelAndView save(@Validated Product product, BindingResult result){
+    public ModelAndView save(@Validated Product product, BindingResult result, RedirectAttributes attributes){
         if(result.hasErrors()) return form(product);
         repository.save(product);
+        attributes.addFlashAttribute("success", "Produto " + product.getDescription() + " cadastrado com sucesso.");
         return new ModelAndView("redirect:/products");
     }
 
@@ -54,8 +56,9 @@ public class ProductController {
      * @PathVariable é utilizado quando o valor da variável é passada diretamente na URL
      */
     @GetMapping("/remove/{id}")
-    public ModelAndView remove(@PathVariable("id") Long id){
+    public ModelAndView remove(@PathVariable("id") Long id, RedirectAttributes attributes){
         repository.deleteById(id);
+        attributes.addFlashAttribute("success", "Produto removido com sucesso.");
         return new ModelAndView("redirect:/products");
     }
 
@@ -72,9 +75,10 @@ public class ProductController {
     }
 
     @PostMapping("/update")
-    public ModelAndView update(@Validated Product product, BindingResult result) {
+    public ModelAndView update(@Validated Product product, BindingResult result, RedirectAttributes attributes) {
         if(result.hasErrors()) return form(product);
         repository.save(product);
+        attributes.addFlashAttribute("success", "Produto " + product.getDescription() + " atualizado com sucesso.");
         return new ModelAndView("redirect:/products");
     }
 }
