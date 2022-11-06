@@ -47,8 +47,9 @@ public class SaleController {
     }
 
     @PostMapping("/changeUser")
-    public ModelAndView changeUser(User user){
+    public ModelAndView changeUser(User user, RedirectAttributes attributes){
         sale.setUser(user);
+        attributes.addFlashAttribute("success", "Usuário " + user.getName() + " selecionado.");
         return new ModelAndView("redirect:/cart");
     }
 
