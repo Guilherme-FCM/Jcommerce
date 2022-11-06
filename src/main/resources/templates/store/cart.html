@@ -49,12 +49,6 @@
 </div>
 <script>
     function send(element){ element.parentElement.submit() }
-    document.getElementById('finishSaleButton').addEventListener('click', function (event){
-        if (document.getElementById("selectClient").value === '0') {
-            event.preventDefault()
-            alert("Selecione um cliente antes de finalizar a venda.")
-        }
-    })
 
     setTimeout(() => {
         document.getElementById('successAlertButton').click()
