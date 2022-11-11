@@ -12,12 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 /**
  *
@@ -32,11 +31,19 @@ public class ProductController {
     ProductRepository repository;
     
     @GetMapping
-    public ModelAndView listProducts(ModelMap model) {
-        model.addAttribute("products", repository.findAll());
+    public ModelAndView listProducts(ModelMap model, @RequestParam(required = false) String description) {
+        List<Product> products = description == null ? repository.findAll() : repository.findByDescriptionContaining(description);
+        model.addAttribute("products", products);
         return new ModelAndView("/products/list", model);
     }
-    
+
+//    @GetMapping("filterByName/{name}")
+//    public ModelAndView listProductsByName(ModelMap model, @PathVariable("name") String name) {
+//        System.out.println(name);
+//        model.addAttribute("products", repository.findAll());
+//        return new ModelAndView("/products/list", model);
+//    }
+
     @GetMapping("/form")
     public ModelAndView form(Product product){
         return new ModelAndView("/products/form");
