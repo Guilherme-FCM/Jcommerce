@@ -10,7 +10,7 @@
     </div>
     <form th:action="@{/products}" method="get">
         <div class="input-group mb-3 mt-2">
-            <input name="description" class="form-control" placeholder="Filtre os produtos por nome" aria-label="Recipient's username" aria-describedby="filter-button">
+            <input th:value="${description}" name="description" class="form-control" placeholder="Filtre os produtos por nome" aria-label="Recipient's username" aria-describedby="filter-button">
             <button class="btn btn-outline-primary" type="submit" id="filter-button"><i class="bi bi-search"></i> Buscar</button>
         </div>
     </form>

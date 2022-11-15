@@ -32,17 +32,12 @@ public class ProductController {
     
     @GetMapping
     public ModelAndView listProducts(ModelMap model, @RequestParam(required = false) String description) {
+        model.addAttribute("description", description);
         List<Product> products = description == null ? repository.findAll() : repository.findByDescriptionContaining(description);
         model.addAttribute("products", products);
         return new ModelAndView("/products/list", model);
     }
 
-//    @GetMapping("filterByName/{name}")
-//    public ModelAndView listProductsByName(ModelMap model, @PathVariable("name") String name) {
-//        System.out.println(name);
-//        model.addAttribute("products", repository.findAll());
-//        return new ModelAndView("/products/list", model);
-//    }
 
     @GetMapping("/form")
     public ModelAndView form(Product product){
