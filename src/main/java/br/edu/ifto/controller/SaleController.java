@@ -17,6 +17,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -35,8 +40,35 @@ public class SaleController {
     Sale sale;
 
     @GetMapping
-    public ModelAndView list(ModelMap model){
-        model.addAttribute("sales", repository.findAll());
+    public ModelAndView list(
+            ModelMap model,
+            @RequestParam(required = false) String initial_date,
+            @RequestParam(required = false) String final_date
+    ){
+        model.addAttribute("initial_date", initial_date);
+        model.addAttribute("final_date", final_date);
+
+        List<Sale> sales;
+        try {
+            if (!initial_date.isEmpty() && !final_date.isEmpty())
+                sales = repository.findByDateBetween(
+                    parseStringToLocalDate(initial_date),
+                    parseStringToLocalDate(final_date)
+                );
+            else if (!initial_date.isEmpty())
+                sales = repository.findByDateAfter(
+                    parseStringToLocalDate(initial_date)
+                );
+            else if (!final_date.isEmpty())
+                sales = repository.findByDateBefore(
+                    parseStringToLocalDate(final_date)
+                );
+            else sales = repository.findAll();
+        } catch (Exception error) {
+            sales = repository.findAll();
+        }
+
+        model.addAttribute("sales", sales);
         return new ModelAndView("/sales/list", model);
     }
 
@@ -66,5 +98,9 @@ public class SaleController {
             attributes.addFlashAttribute("success", "Venda realizada com sucesso.");
         }
         return new ModelAndView("redirect:/store");
+    }
+
+    private LocalDate parseStringToLocalDate(String date) throws Exception {
+        return LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 }

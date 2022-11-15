@@ -1,6 +1,22 @@
 <div th:replace="~{fragments/header :: header}"></div>
 <div class="container">
     <h1>Listagem de Vendas</h1>
+    <form th:action="@{/sales}" method="get" class="mb-3 mt-3">
+        <div class="d-flex justify-content-between align-items-end mb-2">
+            <div class="row">
+                <div class="form-group col">
+                    <label for="initial_date">Data inicial:</label>
+                    <input placeholder="Data inicial" type="date" id="initial_date" name="initial_date" class="form-control" th:value="${initial_date}">
+                </div>
+                <div class="form-group col">
+                    <label for="final_date">Data final:</label>
+                    <input placeholder="Data inicial" type="date" id="final_date" name="final_date" class="form-control" th:value="${final_date}">
+                </div>
+            </div>
+
+            <button class="btn btn-outline-primary" type="submit"><i class="bi bi-search"></i> Buscar</button>
+        </div>
+    </form>
     <table class="table">
         <thead>
             <tr class="table-active">
