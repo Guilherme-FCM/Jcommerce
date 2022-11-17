@@ -33,7 +33,9 @@ public class ProductController {
     @GetMapping
     public ModelAndView listProducts(ModelMap model, @RequestParam(required = false) String description) {
         model.addAttribute("description", description);
-        List<Product> products = description == null ? repository.findAll() : repository.findByDescriptionContaining(description);
+        List<Product> products = description == null
+                ? repository.findAll()
+                : repository.findByDescriptionContaining(description);
         model.addAttribute("products", products);
         return new ModelAndView("/products/list", model);
     }
