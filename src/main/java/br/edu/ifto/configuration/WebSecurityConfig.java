@@ -37,6 +37,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("user").password(
                         new BCryptPasswordEncoder().encode("123")
                 ).roles("USER");
+        builder.inMemoryAuthentication()
+                .withUser("admin").password(
+                        new BCryptPasswordEncoder().encode("123")
+                ).roles("ADMIN");
     }
 
     /**

@@ -11,12 +11,12 @@
         <li class="nav-item">
             <a class="nav-link" href="/cart"><i class="bi bi-cart4"></i> Carrinho (<span th:text="${session.sale == null ? 0 : session.sale.items.size}"></span>)</a>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" sec:authorize="hasRole('ADMIN')">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Cadastros
             </a>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" sec:authorize="hasRole('ADMIN')" href="/users">Usuários</a></li>
+                <li><a class="dropdown-item" href="/users">Usuários</a></li>
                 <li><a class="dropdown-item" href="/companies">Empresas</a></li>
                 <li><a class="dropdown-item" href="/products">Produtos</a></li>
                 <li><a class="dropdown-item" href="/sales">Vendas</a></li>
