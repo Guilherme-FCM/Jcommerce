@@ -27,6 +27,6 @@ public class StoreController {
                 ? productRepository.findAll()
                 : productRepository.findByDescriptionContaining(description);
         model.addAttribute("products", products);
-        return new ModelAndView("/store/index", model);
+        return new ModelAndView("/home", model);
     }
 }
