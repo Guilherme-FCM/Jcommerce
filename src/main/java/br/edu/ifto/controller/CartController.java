@@ -1,9 +1,10 @@
 package br.edu.ifto.controller;
 
 import br.edu.ifto.model.entity.Item;
-import br.edu.ifto.model.entity.Product;
 import br.edu.ifto.model.entity.Sale;
+import br.edu.ifto.model.entity.User;
 import br.edu.ifto.model.repository.ProductRepository;
+import br.edu.ifto.model.repository.SaleRepository;
 import br.edu.ifto.model.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @Transactional
 @Scope("request")
@@ -32,6 +35,9 @@ public class CartController {
     ProductRepository productRepository;
 
     @Autowired
+    SaleRepository saleRepository;
+
+    @Autowired
     Sale sale;
 
     @GetMapping
@@ -40,7 +46,29 @@ public class CartController {
         return new ModelAndView("/store/cart", model);
     }
 
-    @PostMapping("/addItem")
+    @GetMapping("/finish")
+    public ModelAndView finish(HttpSession session, RedirectAttributes attributes){
+        if (sale.getItems().size() == 0)
+            attributes.addFlashAttribute("error", "A venda não pode ser finalizada com o carrinho vazio.");
+        else if (sale.getUser().getId() == null) {
+            attributes.addFlashAttribute("error", "Selecione um usuário para finalizar a venda.");
+            return new ModelAndView("redirect:/cart");
+        } else {
+            saleRepository.save(sale);
+            session.invalidate();
+            attributes.addFlashAttribute("success", "Venda realizada com sucesso.");
+        }
+        return new ModelAndView("redirect:/");
+    }
+
+    @PostMapping("/changeUser")
+    public ModelAndView changeUser(User user, RedirectAttributes attributes){
+        sale.setUser(user);
+        attributes.addFlashAttribute("success", "Usuário " + user.getName() + " selecionado.");
+        return new ModelAndView("redirect:/cart");
+    }
+
+    @PostMapping("/item")
     public ModelAndView addItem(@Validated Item item, BindingResult result, RedirectAttributes attributes) {
         if (result.hasErrors())
             attributes.addFlashAttribute("error", "Não foi possível adicionar este produto ao carrinho");
@@ -50,17 +78,17 @@ public class CartController {
             sale.addItem(item);
             attributes.addFlashAttribute("success", item.getProduct().getDescription() + " adicionado ao carrinho");
         }
-        return new ModelAndView("redirect:/store");
+        return new ModelAndView("redirect:/");
     }
 
-    @GetMapping("/removeItem/{itemIndex}")
+    @GetMapping("/item/remove/{itemIndex}")
     public ModelAndView removeItem(@PathVariable int itemIndex, RedirectAttributes attributes) {
         sale.getItems().remove(itemIndex);
         attributes.addFlashAttribute("success", "Item removido do carrinho");
         return new ModelAndView("redirect:/cart");
     }
 
-    @PostMapping("/updateItemAmount/{itemIndex}")
+    @PostMapping("/item/updateAmount/{itemIndex}")
     public ModelAndView updateItem(@PathVariable int itemIndex, @Validated Item item, BindingResult result) {
         if (result.hasErrors()) return cart(new ModelMap(), item);
         else sale.getItems().get(itemIndex).setAmount(item.getAmount());

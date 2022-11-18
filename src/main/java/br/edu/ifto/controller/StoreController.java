@@ -16,7 +16,6 @@ import java.util.List;
 
 @Controller
 @Transactional
-@RequestMapping("store")
 public class StoreController {
     @Autowired
     ProductRepository productRepository;

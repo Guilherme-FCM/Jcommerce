@@ -32,7 +32,7 @@
             <td th:text="${s.user.name}"> </td>
             <td th:text="${#temporals.format(s.date, 'dd/MM/yyyy')}"> </td>
             <td th:text="${#numbers.formatCurrency(s.total)}"> </td>
-            <td> <a class="btn btn-outline-primary" th:href="@{/sales/details/{id}(id=${s.id})}">Ver mais</a> </td>
+            <td> <a class="btn btn-outline-primary" th:href="@{/sales/{id}(id=${s.id})}">Ver mais</a> </td>
         </tr>
     </table>
 </div>

@@ -2,7 +2,7 @@
 <div class="container">
     <div class="d-flex justify-content-between">
         <h1>Faça suas Compras</h1>
-        <form th:action="@{/store}" method="get">
+        <form th:action="@{/}" method="get">
             <div class="input-group mb-3 mt-2">
                 <input th:value="${description}" name="description" class="form-control" placeholder="Busca" aria-label="Recipient's username" aria-describedby="filter-button">
                 <button class="btn btn-outline-primary" type="submit" id="filter-button"><i class="bi bi-search"></i></button>
@@ -24,7 +24,7 @@
                 <div class="card-body">
                     <h5 class="card-title" th:text="${p.description}"></h5>
                     <p class="card-text">R<span th:text="${#numbers.formatCurrency(p.price)}"></span></p>
-                    <form th:action="@{/cart/addItem}" th:object="${item}" method="post">
+                    <form th:action="@{/cart/item}" th:object="${item}" method="post">
                         <input type="hidden" th:field="*{id}">
                         <input type="hidden" th:name="amount" value="1">
                         <input type="hidden" th:name="product.id" th:value="${p.id}">
