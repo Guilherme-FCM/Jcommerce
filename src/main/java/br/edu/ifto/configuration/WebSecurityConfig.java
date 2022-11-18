@@ -1,4 +1,4 @@
-package br.edu.ifto;
+package br.edu.ifto.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
