@@ -1,3 +1,4 @@
+<html lang="pt-br" xmlns:sec="http://www.w3.org/1999/xhtml">
 <header class="navbar d-flex flex-wrap align-items-center justify-content-center justify-content-md-between px-5 mb-4 border-bottom" th:fragment="nav">
     <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none navbar-brand">
         J-Commerce
@@ -15,7 +16,7 @@
                 Cadastros
             </a>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/users">Usuários</a></li>
+                <li><a class="dropdown-item" sec:authorize="hasRole('ADMIN')" href="/users">Usuários</a></li>
                 <li><a class="dropdown-item" href="/companies">Empresas</a></li>
                 <li><a class="dropdown-item" href="/products">Produtos</a></li>
                 <li><a class="dropdown-item" href="/sales">Vendas</a></li>
@@ -24,7 +25,8 @@
     </ul>
 
     <div class="col-md-3 text-end">
-        <button type="button" class="btn btn-outline-primary me-2">Login</button>
-        <button type="button" class="btn btn-primary">Sign-up</button>
+        <a href="/login" class="btn btn-outline-primary me-2">Login</a>
+        <a class="btn btn-primary">Sign-up</a>
     </div>
 </header>
+</html>
