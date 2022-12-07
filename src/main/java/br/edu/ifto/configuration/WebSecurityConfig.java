@@ -14,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    @Autowired
+    UserDetailsConfig userDetailsConfig;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -21,6 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/webjars/**").permitAll()
             .antMatchers(HttpMethod.GET, "/").permitAll()
             .antMatchers(HttpMethod.GET, "/home").permitAll()
+            .antMatchers(HttpMethod.GET, "/signup").permitAll()
             .antMatchers(HttpMethod.GET, "/store").permitAll()
             .antMatchers(HttpMethod.GET, "/users").hasAnyRole("ADMIN")
             .anyRequest() //define que a configuração é válida para qualquer requisição.
@@ -28,7 +31,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .formLogin() //define que a autenticação pode ser feita via formulário de login.
             .loginPage("/login") // passamos como parâmetro a URL para acesso à página de login que criamos
-            .permitAll(); //define que essa página pode ser acessada por todos, independentemente do usuário estar autenticado ou não.
+            .permitAll() //define que essa página pode ser acessada por todos, independentemente do usuário estar autenticado ou não.
+            .and()
+            .logout() // Logout
+            .permitAll();
     }
 
     @Autowired
@@ -41,6 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("admin").password(
                         new BCryptPasswordEncoder().encode("123")
                 ).roles("ADMIN");
+        builder.userDetailsService(userDetailsConfig).passwordEncoder(new BCryptPasswordEncoder());
     }
 
     /**

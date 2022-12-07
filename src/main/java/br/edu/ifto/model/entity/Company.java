@@ -18,6 +18,7 @@ import javax.validation.constraints.NotBlank;
 @Table(name = "companies")
 public class Company extends Person {
     @CNPJ
+    @NotBlank
     private String cnpj;
 
     public String getCnpj() {

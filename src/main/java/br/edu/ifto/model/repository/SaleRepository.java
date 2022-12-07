@@ -7,7 +7,6 @@ package br.edu.ifto.model.repository;
 import br.edu.ifto.model.entity.Sale;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.util.List;
 

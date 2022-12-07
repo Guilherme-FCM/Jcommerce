@@ -7,6 +7,7 @@ package br.edu.ifto.controller;
 import br.edu.ifto.model.entity.User;
 import br.edu.ifto.model.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
@@ -29,21 +30,23 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class UserController {
     @Autowired
     UserRepository repository;
-    
+
     @GetMapping
-    public ModelAndView findAll(ModelMap model){
+    public ModelAndView findAll(ModelMap model) {
         model.addAttribute("users", repository.findAll());
         return new ModelAndView("/users/list", model);
     }
 
     @GetMapping("/form")
-    public ModelAndView form(User user){
+    public ModelAndView form(User user) {
         return new ModelAndView("/users/form");
     }
 
     @PostMapping("/save")
-    public ModelAndView save(@Validated User user, BindingResult result, RedirectAttributes attributes){
-        if(result.hasErrors()) return form(user);
+    public ModelAndView save(@Validated User user, BindingResult result, RedirectAttributes attributes) {
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        if (result.hasErrors())
+            return form(user);
         repository.save(user);
         attributes.addFlashAttribute("success", "Usuário " + user.getName() + " cadastrado com sucesso.");
         return new ModelAndView("redirect:/users");
@@ -56,15 +59,16 @@ public class UserController {
     }
 
     @PostMapping("/update")
-    public ModelAndView update(@Validated User user, BindingResult result, RedirectAttributes attributes){
-        if(result.hasErrors()) return form(user);
+    public ModelAndView update(@Validated User user, BindingResult result, RedirectAttributes attributes) {
+        if (result.hasErrors())
+            return form(user);
         repository.save(user);
         attributes.addFlashAttribute("success", "Usuário " + user.getName() + " atualizado com sucesso.");
         return new ModelAndView("redirect:/users");
     }
 
     @GetMapping("/remove/{id}")
-    public ModelAndView remove(@PathVariable Long id, RedirectAttributes attributes){
+    public ModelAndView remove(@PathVariable Long id, RedirectAttributes attributes) {
         repository.deleteById(id);
         attributes.addFlashAttribute("success", "Usuário removido com sucesso.");
         return new ModelAndView("redirect:/users");

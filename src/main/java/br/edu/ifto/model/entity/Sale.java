@@ -29,7 +29,7 @@ public class Sale implements Serializable {
     private LocalDate date = LocalDate.now();
 
     @OneToMany(mappedBy = "sale", cascade = CascadeType.PERSIST)
-    private List<Item> items = new ArrayList();
+    private List<Item> items = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "user_id")
