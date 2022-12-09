@@ -44,12 +44,21 @@ public class UserController {
 
     @PostMapping("/save")
     public ModelAndView save(@Validated User user, BindingResult result, RedirectAttributes attributes) {
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         if (result.hasErrors())
             return form(user);
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         repository.save(user);
         attributes.addFlashAttribute("success", "Usuário " + user.getName() + " cadastrado com sucesso.");
         return new ModelAndView("redirect:/users");
+    }
+
+    @PostMapping("/register")
+    public ModelAndView register(@Validated User user, BindingResult result) {
+        if (result.hasErrors())
+            return form(user);
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        repository.save(user);
+        return new ModelAndView("redirect:/login");
     }
 
     @GetMapping("/edit/{id}")

@@ -20,7 +20,6 @@ import javax.persistence.*;
 @Component
 @Scope("session")
 @Entity
-@Table(name = "sales")
 public class Sale implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -9,8 +9,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
@@ -22,7 +22,6 @@ import java.util.List;
  * @author GuilhermeFCM
  */
 @Entity
-@Table(name = "users")
 public class User extends Person implements UserDetails {
     @CPF
     private String cpf;
@@ -36,6 +35,9 @@ public class User extends Person implements UserDetails {
 
     @OneToMany(mappedBy = "user")
     private List<Sale> sales;
+
+    @ManyToMany
+    private List<Role> roles;
 
     public String getCpf() {
         return cpf;
@@ -59,7 +61,7 @@ public class User extends Person implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return roles;
     }
 
     @Override
@@ -90,5 +92,21 @@ public class User extends Person implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public List<Sale> getSales() {
+        return sales;
+    }
+
+    public void setSales(List<Sale> sales) {
+        this.sales = sales;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }

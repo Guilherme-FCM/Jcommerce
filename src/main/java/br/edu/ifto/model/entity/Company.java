@@ -7,7 +7,6 @@ package br.edu.ifto.model.entity;
 import org.hibernate.validator.constraints.br.CNPJ;
 
 import javax.persistence.Entity;
-import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 /**
@@ -15,7 +14,6 @@ import javax.validation.constraints.NotBlank;
  * @author GuilhermeFCM
  */
 @Entity
-@Table(name = "companies")
 public class Company extends Person {
     @CNPJ
     @NotBlank
