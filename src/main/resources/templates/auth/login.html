@@ -8,6 +8,10 @@
             </div>
 
             <div class="modal-body p-5 pt-0">
+                <div class="alert alert-danger alert-dismissible fade show d-none" role="alert" id="errorMessage">
+                    <span>E-mail ou senha inválidos, tente novamente</span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
                 <form th:action="@{/login}" method="post">
                     <div class="form-floating mb-3">
                         <input name="username" type="text" class="form-control rounded-3" id="floatingInput" placeholder="E-mail">
@@ -35,5 +39,11 @@
         </div>
     </div>
 </div>
+<script>
+    window.onload = function() {
+        if (location.search.slice(1) == 'error')
+            document.getElementById('errorMessage').classList.remove('d-none')
+    }
+</script>
 </body>
 </html>

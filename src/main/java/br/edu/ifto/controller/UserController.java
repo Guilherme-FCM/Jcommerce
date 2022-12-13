@@ -53,9 +53,11 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ModelAndView register(@Validated User user, BindingResult result) {
-        if (result.hasErrors())
-            return form(user);
+    public ModelAndView register(@Validated User user, BindingResult result, RedirectAttributes attributes) {
+        if (result.hasErrors()) {
+            attributes.addFlashAttribute("error", "Não foi possível finalizar o cadastro, tente novamente.");
+            return new ModelAndView("redirect:/signup");
+        }
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         repository.save(user);
         return new ModelAndView("redirect:/login");

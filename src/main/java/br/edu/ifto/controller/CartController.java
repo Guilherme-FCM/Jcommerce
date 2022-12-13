@@ -2,7 +2,6 @@ package br.edu.ifto.controller;
 
 import br.edu.ifto.model.entity.Item;
 import br.edu.ifto.model.entity.Sale;
-import br.edu.ifto.model.entity.User;
 import br.edu.ifto.model.repository.ProductRepository;
 import br.edu.ifto.model.repository.SaleRepository;
 import br.edu.ifto.model.repository.UserRepository;

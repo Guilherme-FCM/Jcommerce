@@ -8,23 +8,28 @@
             </div>
 
             <div class="modal-body p-5 pt-0">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${!#strings.isEmpty(error)}">
+                    <span th:text="${error}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id="errorAlertButton"></button>
+                </div>
+
                 <form th:action="@{/users/register}" method="post">
                     <div class="form-floating mb-3">
-                        <input name="name" type="text" class="form-control rounded-3" id="floatingInput" placeholder="Nome Completo">
+                        <input name="name" type="text" class="form-control rounded-3" placeholder="Nome Completo">
                         <label for="floatingInput">Nome Completo</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input name="email" type="text" class="form-control rounded-3" id="floatingInput" placeholder="E-mail">
+                        <input name="email" type="text" class="form-control rounded-3" placeholder="E-mail">
                         <label for="floatingInput">E-mail</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input name="password" type="password" class="form-control rounded-3" id="floatingPassword" placeholder="Senha">
+                        <input name="password" type="password" class="form-control rounded-3" placeholder="Senha">
                         <label for="floatingPassword">Senha</label>
                     </div>
-                    <!-- <div class="form-floating mb-3">
-                        <input name="confirmedPassword" type="confirmedPassword" class="form-control rounded-3" id="floatingConfirmedPassword" placeholder="Confirmar">
+                    <div class="form-floating mb-3">
+                        <input name="confirmedPassword" type="confirmedPassword" class="form-control rounded-3" placeholder="Confirmar">
                         <label for="floatingConfirmedPassword">Confirmar Senha</label>
-                    </div> -->
+                    </div>
                     <button class="w-100 btn btn-lg rounded-3 btn-primary" type="submit">Cadastrar</button>
                   </form>
                   <div class="d-flex justify-content-center mb-3">
