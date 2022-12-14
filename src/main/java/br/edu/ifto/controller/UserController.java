@@ -5,6 +5,7 @@
 package br.edu.ifto.controller;
 
 import br.edu.ifto.model.entity.User;
+import br.edu.ifto.model.repository.RoleRepository;
 import br.edu.ifto.model.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -31,6 +32,9 @@ public class UserController {
     @Autowired
     UserRepository repository;
 
+    @Autowired
+    RoleRepository roleRepository;
+
     @GetMapping
     public ModelAndView findAll(ModelMap model) {
         model.addAttribute("users", repository.findAll());
@@ -38,14 +42,15 @@ public class UserController {
     }
 
     @GetMapping("/form")
-    public ModelAndView form(User user) {
-        return new ModelAndView("/users/form");
+    public ModelAndView form(User user, ModelMap model) {
+        model.addAttribute("roles", roleRepository.findAll());
+        return new ModelAndView("/users/form", model);
     }
 
     @PostMapping("/save")
     public ModelAndView save(@Validated User user, BindingResult result, RedirectAttributes attributes) {
         if (result.hasErrors())
-            return form(user);
+            return form(user, new ModelMap());
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         repository.save(user);
         attributes.addFlashAttribute("success", "Usuário " + user.getName() + " cadastrado com sucesso.");
@@ -72,7 +77,7 @@ public class UserController {
     @PostMapping("/update")
     public ModelAndView update(@Validated User user, BindingResult result, RedirectAttributes attributes) {
         if (result.hasErrors())
-            return form(user);
+            return form(user, new ModelMap());
         repository.save(user);
         attributes.addFlashAttribute("success", "Usuário " + user.getName() + " atualizado com sucesso.");
         return new ModelAndView("redirect:/users");

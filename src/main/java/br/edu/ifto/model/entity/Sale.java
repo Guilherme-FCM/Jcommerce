@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package br.edu.ifto.model.entity;
 
 import org.springframework.context.annotation.Scope;
@@ -31,7 +27,6 @@ public class Sale implements Serializable {
     private List<Item> items = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
     private User user = new User();
     
     public double total(){
