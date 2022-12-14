@@ -63,6 +63,7 @@ public class UserController {
             attributes.addFlashAttribute("error", "Não foi possível finalizar o cadastro, tente novamente.");
             return new ModelAndView("redirect:/signup");
         }
+        user.getRoles().add(roleRepository.findByName("ROLE_USER"));
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         repository.save(user);
         return new ModelAndView("redirect:/login");
@@ -70,7 +71,9 @@ public class UserController {
 
     @GetMapping("/edit/{id}")
     public ModelAndView edit(@PathVariable Long id, ModelMap model) {
-        model.addAttribute("user", repository.findById(id).get());
+        User user = repository.findById(id).get();
+        model.addAttribute("user", user);
+        model.addAttribute("roles", roleRepository.findAll());
         return new ModelAndView("/users/form", model);
     }
 
@@ -78,6 +81,7 @@ public class UserController {
     public ModelAndView update(@Validated User user, BindingResult result, RedirectAttributes attributes) {
         if (result.hasErrors())
             return form(user, new ModelMap());
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         repository.save(user);
         attributes.addFlashAttribute("success", "Usuário " + user.getName() + " atualizado com sucesso.");
         return new ModelAndView("redirect:/users");

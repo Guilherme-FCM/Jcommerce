@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class User extends Person implements UserDetails {
     private List<Sale> sales;
 
     @ManyToMany
-    private List<Role> roles;
+    private List<Role> roles = new ArrayList<>();
 
     public String getCpf() {
         return cpf;
