@@ -23,12 +23,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                 .antMatchers("/webjars/**").permitAll()
                                 .antMatchers(HttpMethod.GET, "/").permitAll()
                                 .antMatchers(HttpMethod.GET, "/home").permitAll()
-                                .antMatchers(HttpMethod.GET, "/signup").permitAll()
                                 .antMatchers(HttpMethod.GET, "/store").permitAll()
-                                .antMatchers(HttpMethod.GET, "/cart").permitAll()
-                                .antMatchers("/cart/item/**").permitAll()
+                                .antMatchers(HttpMethod.GET, "/signup").permitAll()
                                 .antMatchers(HttpMethod.POST, "/users/register").permitAll()
-                                .antMatchers(HttpMethod.GET, "/users").hasAnyRole("ADMIN")
+                                .antMatchers("/cart/finish").hasAnyRole("ADMIN", "USER")
+                                .antMatchers("/cart/**").permitAll()
+                                .antMatchers("/companies/**").hasAnyRole("ADMIN", "EMPLOYEE")
+                                .antMatchers("/products/**").hasAnyRole("ADMIN", "EMPLOYEE")
+                                .antMatchers("/sales/**").hasAnyRole("ADMIN", "EMPLOYEE")
+                                .antMatchers("/users/**").hasRole("ADMIN")
                                 .anyRequest() // define que a configuração é válida para qualquer requisição.
                                 .authenticated() // define que o usuário precisa estar autenticado.
                                 .and()
@@ -44,14 +47,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         @Autowired
         public void configureUserDetails(AuthenticationManagerBuilder builder) throws Exception {
-                builder.inMemoryAuthentication()
-                                .withUser("user").password(
-                                                new BCryptPasswordEncoder().encode("123"))
-                                .roles("USER");
-                builder.inMemoryAuthentication()
-                                .withUser("admin").password(
-                                                new BCryptPasswordEncoder().encode("123"))
-                                .roles("ADMIN");
                 builder.userDetailsService(userDetailsConfig).passwordEncoder(new BCryptPasswordEncoder());
         }
 

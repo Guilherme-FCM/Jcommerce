@@ -22,7 +22,7 @@
           >)</a
         >
       </li>
-      <li class="nav-item dropdown" sec:authorize="hasRole('ADMIN')">
+      <li class="nav-item dropdown" sec:authorize="hasAnyRole('ADMIN', 'EMPLOYEE')">
         <a
           class="nav-link dropdown-toggle"
           href="#"
@@ -33,7 +33,7 @@
           Cadastros
         </a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="/users">Usuários</a></li>
+          <li><a class="dropdown-item" href="/users" sec:authorize="hasRole('ADMIN')">Usuários</a></li>
           <li><a class="dropdown-item" href="/companies">Empresas</a></li>
           <li><a class="dropdown-item" href="/products">Produtos</a></li>
           <li><a class="dropdown-item" href="/sales">Vendas</a></li>
@@ -59,8 +59,9 @@
               </span>
             </li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Configurações</a></li>
-            <li><a class="dropdown-item" href="#">Suas Compras</a></li>
+            <li><a class="dropdown-item" href="#">Perfil</a></li>
+            <li><a class="dropdown-item" href="#" sec:authorize="hasAnyRole('ADMIN', 'EMPLOYEE')">Configurações do Site</a></li>
+            <li><a class="dropdown-item" href="#" sec:authorize="hasAnyRole('ADMIN', 'USER')">Suas Compras</a></li>
             <li><hr class="dropdown-divider"></li>
             <li>
               <form th:action="@{/logout}" method="post">

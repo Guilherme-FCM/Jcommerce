@@ -6,7 +6,7 @@
         <span th:text="${error}"></span>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id="errorAlertButton"></button>
     </div>
-    <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${!#strings.isEmpty(success)}">
+    <div class="alert alert-primary alert-dismissible fade show" role="alert" th:if="${!#strings.isEmpty(success)}">
         <span th:text="${success}"></span>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id="successAlertButton"></button>
     </div>

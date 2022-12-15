@@ -13,22 +13,23 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id="errorAlertButton"></button>
                 </div>
 
-                <form th:action="@{/users/register}" method="post">
+                <form th:action="@{/users/register}" method="post" id="form">
                     <div class="form-floating mb-3">
                         <input name="name" type="text" class="form-control rounded-3" placeholder="Nome Completo">
-                        <label for="floatingInput">Nome Completo</label>
+                        <label>Nome Completo</label>
                     </div>
                     <div class="form-floating mb-3">
                         <input name="email" type="text" class="form-control rounded-3" placeholder="E-mail">
-                        <label for="floatingInput">E-mail</label>
+                        <label>E-mail</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input name="password" type="password" class="form-control rounded-3" placeholder="Senha">
-                        <label for="floatingPassword">Senha</label>
+                        <input name="password" type="password" class="form-control rounded-3" placeholder="Senha" id="password">
+                        <label for="password">Senha</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input name="confirmedPassword" type="password" class="form-control rounded-3" placeholder="Confirmar">
-                        <label for="floatingConfirmedPassword">Confirmar Senha</label>
+                        <input name="confirmedPassword" type="password" class="form-control rounded-3" placeholder="Confirmar" id="confirmedPassword">
+                        <label for="confirmedPassword">Confirmar Senha</label>
+                        <span class="text-danger d-none" id="errorMessage">As senhas devem ser iguais</span>
                     </div>
                     <button class="w-100 btn btn-lg rounded-3 btn-primary" type="submit">Cadastrar</button>
                   </form>
@@ -48,4 +49,13 @@
     </div>
 </div>
 </body>
+<script>
+    const password = document.getElementById('password')
+    const errorMessage = document.getElementById('errorMessage')
+    document.getElementById('confirmedPassword').addEventListener('input', ({ target }) => {
+        if (password.value != target.value) 
+            errorMessage.classList.remove('d-none')
+        else errorMessage.classList.add('d-none')
+    })
+</script>
 </html>
