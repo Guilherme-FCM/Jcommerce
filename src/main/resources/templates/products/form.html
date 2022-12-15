@@ -13,6 +13,10 @@
             <input id="price" class="form-control" th:field="*{price}" type="number" placeholder="R$: 0,00">
             <div th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="text-danger"></div>
         </div>
+        <select th:field="*{company}" class="form-select mb-3" aria-label="Selecione um Fornecedor">
+            <option value="0" th:if="${product.getCompany.getId == null}">Selecione um Fornecedor</option>
+            <option th:each="c : ${companies}" th:value="${c.id}" th:text="${c.name}" th:selected="${product.getCompany.getId == c.id}"></option>
+        </select>
         <div class="d-flex justify-content-between">
             <a class="btn btn-outline-primary" href="/products">Voltar para a Listagem</a>
             <button class="btn btn-primary" type="submit">Enviar</button>

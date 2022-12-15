@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
@@ -28,6 +29,9 @@ public class Product implements Serializable {
 
     @Min(1)
     private double price;
+
+    @ManyToOne
+    private Company company = new Company();
 
     public Long getId() {
         return id;
@@ -51,5 +55,13 @@ public class Product implements Serializable {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }
