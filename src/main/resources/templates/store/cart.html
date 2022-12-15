@@ -27,7 +27,7 @@
             <td th:text="${#numbers.formatCurrency(i.product.price)}"> </td>
             <td class="mx-auto">
                 <form method="post" th:action="@{/cart/item/updateAmount/{idx}(idx=${idx.index})}" th:object="${item}">
-                    <input th:name="amount" th:value="${i.amount}" type="number" class="form-control" onchange="send(this)">
+                    <input th:name="amount" th:value="${i.amount}" type="number" class="form-control" id="itemAmount">
                 </form>
             </td>
             <td th:text="${#numbers.formatCurrency(i.total)}"></td>
@@ -42,6 +42,10 @@
     <a th:href="@{/cart/finish}" class="btn btn-primary mt-2" id="finishSaleButton">Finalizar Compra</a>
 </div>
 <script>
+    document.getElementById('itemAmount').addEventListener('change', ({ target }) => {
+        target.parentElement.submit()
+    })
+
     setTimeout(() => {
         document.getElementById('successAlertButton').click()
         document.getElementById('errorAlertButton').click()
