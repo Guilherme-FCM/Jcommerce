@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -46,13 +47,12 @@ public class CartController {
     }
 
     @GetMapping("/finish")
-    public ModelAndView finish(HttpSession session, RedirectAttributes attributes){
+    public ModelAndView finish(HttpServletRequest request, HttpSession session, RedirectAttributes attributes) {
         if (sale.getItems().size() == 0)
             attributes.addFlashAttribute("error", "A venda não pode ser finalizada com o carrinho vazio.");
-        else if (sale.getUser().getId() == null) {
-            attributes.addFlashAttribute("error", "Selecione um usuário para finalizar a venda.");
-            return new ModelAndView("redirect:/cart");
-        } else {
+        else {
+            String userEmail = request.getUserPrincipal().getName();
+            sale.setUser(userRepository.findByEmail(userEmail));
             saleRepository.save(sale);
             session.invalidate();
             attributes.addFlashAttribute("success", "Venda realizada com sucesso.");
@@ -82,8 +82,10 @@ public class CartController {
 
     @PostMapping("/item/updateAmount/{itemIndex}")
     public ModelAndView updateItem(@PathVariable int itemIndex, @Validated Item item, BindingResult result) {
-        if (result.hasErrors()) return cart(new ModelMap(), item);
-        else sale.getItems().get(itemIndex).setAmount(item.getAmount());
+        if (result.hasErrors())
+            return cart(new ModelMap(), item);
+        else
+            sale.getItems().get(itemIndex).setAmount(item.getAmount());
         return new ModelAndView("redirect:/cart");
     }
 }
