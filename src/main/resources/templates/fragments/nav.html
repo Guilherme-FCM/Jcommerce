@@ -61,7 +61,7 @@
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Perfil</a></li>
             <li><a class="dropdown-item" href="#" sec:authorize="hasAnyRole('ADMIN', 'EMPLOYEE')">Configurações do Site</a></li>
-            <li><a class="dropdown-item" href="#" sec:authorize="hasAnyRole('ADMIN', 'USER')">Suas Compras</a></li>
+            <li><a class="dropdown-item" th:href="@{/sales/user/{id}(id=${1})}" sec:authorize="hasAnyRole('ADMIN', 'USER')">Suas Compras</a></li>
             <li><hr class="dropdown-divider"></li>
             <li>
               <form th:action="@{/logout}" method="post">

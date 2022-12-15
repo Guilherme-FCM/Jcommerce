@@ -68,6 +68,13 @@ public class SaleController {
         return new ModelAndView("/sales/details");
     }
 
+    @GetMapping("user/{id}")
+    public ModelAndView getUserSales(ModelMap model, @PathVariable Long id) {
+        System.out.println(repository.findByUserId(id).size());
+        model.addAttribute("sales", repository.findByUserId(id));
+        return new ModelAndView("/sales/userList");
+    }
+
     private LocalDate parseStringToLocalDate(String date) throws Exception {
         return LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
