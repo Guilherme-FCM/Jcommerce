@@ -6,7 +6,7 @@
         <span th:text="${error}"></span>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id="errorAlertButton"></button>
     </div>
-    <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${!#strings.isEmpty(success)}">
+    <div class="alert alert-primary alert-dismissible fade show" role="alert" th:if="${!#strings.isEmpty(success)}">
         <span th:text="${success}"></span>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id="successAlertButton"></button>
     </div>
@@ -27,7 +27,7 @@
             <td th:text="${#numbers.formatCurrency(i.product.price)}"> </td>
             <td class="mx-auto">
                 <form method="post" th:action="@{/cart/item/updateAmount/{idx}(idx=${idx.index})}" th:object="${item}">
-                    <input th:name="amount" th:value="${i.amount}" type="number" class="form-control" onchange="send(this)">
+                    <input th:name="amount" th:value="${i.amount}" type="number" class="form-control" id="itemAmount">
                 </form>
             </td>
             <td th:text="${#numbers.formatCurrency(i.total)}"></td>
@@ -39,16 +39,12 @@
             <td></td>
         </tr>
     </table>
-    <form th:action="@{/cart/changeUser}" th:object="${user}" method="post">
-        <select th:name="id" class="form-select" aria-label="Selecione um Cliente" onchange="send(this)" id="selectClient">
-            <option value="0" th:if="${session.sale.user.id == null}">Selecione um Usuário</option>
-            <option th:each="u : ${users}" th:value="${u.id}" th:text="${u.name}" th:selected="${u.id==session.sale.user.id}"></option>
-        </select>
-    </form>
     <a th:href="@{/cart/finish}" class="btn btn-primary mt-2" id="finishSaleButton">Finalizar Compra</a>
 </div>
 <script>
-    function send(element){ element.parentElement.submit() }
+    document.getElementById('itemAmount').addEventListener('change', ({ target }) => {
+        target.parentElement.submit()
+    })
 
     setTimeout(() => {
         document.getElementById('successAlertButton').click()

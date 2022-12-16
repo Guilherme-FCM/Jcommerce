@@ -1,32 +1,78 @@
 <html lang="pt-br" xmlns:sec="http://www.w3.org/1999/xhtml">
-<header class="navbar d-flex flex-wrap align-items-center justify-content-center justify-content-md-between px-5 mb-4 border-bottom" th:fragment="nav">
-    <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none navbar-brand">
-        J-Commerce
+  <header
+    class="navbar d-flex flex-wrap align-items-center justify-content-center justify-content-md-between px-5 mb-4 border-bottom"
+    th:fragment="nav"
+  >
+    <a
+      href="/"
+      class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none navbar-brand"
+    >
+      J-Commerce
     </a>
 
     <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-        <li class="nav-item">
-            <a class="nav-link" href="/store"><i class="bi bi-handbag"></i> Loja</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/cart"><i class="bi bi-cart4"></i> Carrinho (<span th:text="${session.sale == null ? 0 : session.sale.items.size}"></span>)</a>
-        </li>
-        <li class="nav-item dropdown" sec:authorize="hasRole('ADMIN')">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Cadastros
-            </a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="/users">Usuários</a></li>
-                <li><a class="dropdown-item" href="/companies">Empresas</a></li>
-                <li><a class="dropdown-item" href="/products">Produtos</a></li>
-                <li><a class="dropdown-item" href="/sales">Vendas</a></li>
-            </ul>
-        </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/store"><i class="bi bi-handbag"></i> Loja</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/cart"
+          ><i class="bi bi-cart4"></i> Carrinho (<span
+            th:text="${session.sale == null ? 0 : session.sale.items.size}"
+          ></span
+          >)</a
+        >
+      </li>
+      <li class="nav-item dropdown" sec:authorize="hasAnyRole('ADMIN', 'EMPLOYEE')">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          Cadastros
+        </a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="/users" sec:authorize="hasRole('ADMIN')">Usuários</a></li>
+          <li><a class="dropdown-item" href="/companies">Fornecedores</a></li>
+          <li><a class="dropdown-item" href="/products">Produtos</a></li>
+          <li><a class="dropdown-item" href="/sales">Vendas</a></li>
+        </ul>
+      </li>
     </ul>
 
     <div class="col-md-3 text-end">
-        <a href="/login" class="btn btn-outline-primary me-2">Login</a>
-        <a class="btn btn-primary">Sign-up</a>
+      <div sec:authorize="!isAuthenticated()">
+        <a href="/login" class="btn btn-primary me-2">Entrar</a>
+        <a href="/signup" class="btn btn-outline-primary">Cadastre-se</a>
+      </div>
+
+      <div sec:authorize="isAuthenticated()">
+        <div class="dropdown">
+          <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-person-circle fs-4"></i>
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <span class="dropdown-item">
+                Olá, <strong sec:authentication="name"></strong>
+              </span>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Perfil</a></li>
+            <li><a class="dropdown-item" href="#">Meus Endereços</a></li>
+            <li><a class="dropdown-item" href="#">Formas de Pagamento</a></li>
+            <li><a class="dropdown-item" href="#" sec:authorize="hasAnyRole('ADMIN', 'EMPLOYEE')">Configurações do Site</a></li>
+            <li><a class="dropdown-item" href="#" sec:authorize="hasAnyRole('ADMIN', 'USER')">Suas Compras</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <form th:action="@{/logout}" method="post">
+                <input type="submit" class="dropdown-item text-danger" value="Sair"></input>
+              </form>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
-</header>
+  </header>
 </html>

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package br.edu.ifto.model.entity;
 
 import org.springframework.context.annotation.Scope;
@@ -20,7 +16,6 @@ import javax.persistence.*;
 @Component
 @Scope("session")
 @Entity
-@Table(name = "sales")
 public class Sale implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,10 +24,9 @@ public class Sale implements Serializable {
     private LocalDate date = LocalDate.now();
 
     @OneToMany(mappedBy = "sale", cascade = CascadeType.PERSIST)
-    private List<Item> items = new ArrayList();
+    private List<Item> items = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
     private User user = new User();
     
     public double total(){

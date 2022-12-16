@@ -5,6 +5,7 @@
 package br.edu.ifto.controller;
 
 import br.edu.ifto.model.entity.Product;
+import br.edu.ifto.model.repository.CompanyRepository;
 import br.edu.ifto.model.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,9 @@ import java.util.List;
 public class ProductController {
     @Autowired
     ProductRepository repository;
+
+    @Autowired
+    CompanyRepository companyRepository;
     
     @GetMapping
     public ModelAndView listProducts(ModelMap model, @RequestParam(required = false) String description) {
@@ -42,13 +46,14 @@ public class ProductController {
 
 
     @GetMapping("/form")
-    public ModelAndView form(Product product){
+    public ModelAndView form(ModelMap model, Product product){
+        model.addAttribute("companies", companyRepository.findAll());
         return new ModelAndView("/products/form");
     }
     
     @PostMapping("/save")
     public ModelAndView save(@Validated Product product, BindingResult result, RedirectAttributes attributes){
-        if(result.hasErrors()) return form(product);
+        if(result.hasErrors()) return form(new ModelMap(), product);
         repository.save(product);
         attributes.addFlashAttribute("success", "Produto " + product.getDescription() + " cadastrado com sucesso.");
         return new ModelAndView("redirect:/products");
@@ -74,13 +79,14 @@ public class ProductController {
      */
     @GetMapping("/edit/{id}")
     public ModelAndView edit(@PathVariable("id") Long id, ModelMap model) {
+        model.addAttribute("companies", companyRepository.findAll());
         model.addAttribute("product", repository.findById(id).get());
         return new ModelAndView("/products/form", model);
     }
 
     @PostMapping("/update")
     public ModelAndView update(@Validated Product product, BindingResult result, RedirectAttributes attributes) {
-        if(result.hasErrors()) return form(product);
+        if(result.hasErrors()) return form(new ModelMap(), product);
         repository.save(product);
         attributes.addFlashAttribute("success", "Produto " + product.getDescription() + " atualizado com sucesso.");
         return new ModelAndView("redirect:/products");

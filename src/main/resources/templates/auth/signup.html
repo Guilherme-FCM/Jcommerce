@@ -1,0 +1,61 @@
+<div th:replace="~{fragments/head :: head}"></div>
+<div class="modal modal-signin position-static d-block" tabindex="-1" role="dialog" id="modal-signin">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header p-5 pb-4 border-bottom-0">
+                <h1 class="fw-bold mb-0 fs-2">Criar Conta</h1>
+                <a th:href="@{/}" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></a>
+            </div>
+
+            <div class="modal-body p-5 pt-0">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" th:if="${!#strings.isEmpty(error)}">
+                    <span th:text="${error}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id="errorAlertButton"></button>
+                </div>
+
+                <form th:action="@{/users/register}" method="post" id="form">
+                    <div class="form-floating mb-3">
+                        <input name="name" type="text" class="form-control rounded-3" placeholder="Nome Completo">
+                        <label>Nome Completo</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input name="email" type="text" class="form-control rounded-3" placeholder="E-mail">
+                        <label>E-mail</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input name="password" type="password" class="form-control rounded-3" placeholder="Senha" id="password">
+                        <label for="password">Senha</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input name="confirmedPassword" type="password" class="form-control rounded-3" placeholder="Confirmar" id="confirmedPassword">
+                        <label for="confirmedPassword">Confirmar Senha</label>
+                        <span class="text-danger d-none" id="errorMessage">As senhas devem ser iguais</span>
+                    </div>
+                    <button class="w-100 btn btn-lg rounded-3 btn-primary" type="submit">Cadastrar</button>
+                  </form>
+                  <div class="d-flex justify-content-center mb-3">
+                    <button class="w-100 py-2 me-2 btn btn-outline-danger rounded-3">
+                      <i class="bi bi-google"></i>
+                      Entrar com Google
+                    </button>
+                    <button class="w-100 py-2 btn btn-outline-primary rounded-3">
+                      <i class="bi bi-facebook"></i>
+                      Entrar com Facebook
+                    </button>
+                  </div>
+                  <small class="text-muted">Eu concordo com as <a class="link">políticas de privacidade</a>.</small>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    const password = document.getElementById('password')
+    const errorMessage = document.getElementById('errorMessage')
+    document.getElementById('confirmedPassword').addEventListener('input', ({ target }) => {
+        if (password.value != target.value) 
+            errorMessage.classList.remove('d-none')
+        else errorMessage.classList.add('d-none')
+    })
+</script>
+</html>

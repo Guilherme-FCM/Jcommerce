@@ -13,7 +13,6 @@ import javax.validation.constraints.Min;
  * @author GuilhermeFCM
  */
 @Entity
-@Table(name = "items")
 public class Item implements Serializable {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
