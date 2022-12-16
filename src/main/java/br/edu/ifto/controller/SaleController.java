@@ -5,8 +5,12 @@
 package br.edu.ifto.controller;
 
 import br.edu.ifto.model.entity.Sale;
+import br.edu.ifto.model.entity.User;
 import br.edu.ifto.model.repository.SaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
@@ -66,6 +70,13 @@ public class SaleController {
     public ModelAndView details(ModelMap model, @PathVariable Long id){
         model.addAttribute("sale", repository.findById(id).get());
         return new ModelAndView("/sales/details");
+    }
+
+    @GetMapping("user/")
+    public ModelAndView getUserSales(ModelMap model, @PathVariable Long id) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("sales", repository.findByUserEmail(auth.getName()));
+        return new ModelAndView("/sales/userList");
     }
 
     private LocalDate parseStringToLocalDate(String date) throws Exception {
