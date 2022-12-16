@@ -22,7 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
- *
  * @author GuilhermeFCM
  */
 @Controller
@@ -63,9 +62,15 @@ public class UserController {
             attributes.addFlashAttribute("error", "Não foi possível finalizar o cadastro, tente novamente.");
             return new ModelAndView("redirect:/signup");
         }
+        if (repository.findByEmail(user.getEmail()) != null){
+            attributes.addFlashAttribute("error", "Este e-mail já está sendo utilizado.");
+            return new ModelAndView("redirect:/signup");
+        }
         user.getRoles().add(roleRepository.findByName("ROLE_USER"));
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         repository.save(user);
+
+        attributes.addFlashAttribute("success", "Cadastro finalizado, faça o login para acessar.");
         return new ModelAndView("redirect:/login");
     }
 

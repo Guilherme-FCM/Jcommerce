@@ -12,6 +12,10 @@
                     <span>E-mail ou senha inválidos, tente novamente</span>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
+                <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${!#strings.isEmpty(success)}">
+                    <span th:text="${success}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id="successAlertButton"></button>
+                </div>
                 <form th:action="@{/login}" method="post">
                     <div class="form-floating mb-3">
                         <input name="username" type="text" class="form-control rounded-3" id="floatingInput" placeholder="E-mail">
