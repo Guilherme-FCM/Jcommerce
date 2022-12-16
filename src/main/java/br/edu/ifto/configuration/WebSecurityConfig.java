@@ -30,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                                 .antMatchers("/cart/**").permitAll()
                                 .antMatchers("/companies/**").hasAnyRole("ADMIN", "EMPLOYEE")
                                 .antMatchers("/products/**").hasAnyRole("ADMIN", "EMPLOYEE")
-                                .antMatchers(HttpMethod.GET, "/sales/user/**").hasAnyRole("ADMIN", "USER")
+                                .antMatchers(HttpMethod.GET, "/sales/user").hasAnyRole("ADMIN", "USER")
                                 .antMatchers("/sales/**").hasAnyRole("ADMIN", "EMPLOYEE")
                                 .antMatchers("/users/**").hasRole("ADMIN")
                                 .anyRequest() // define que a configuração é válida para qualquer requisição.

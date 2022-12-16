@@ -72,8 +72,8 @@ public class SaleController {
         return new ModelAndView("/sales/details");
     }
 
-    @GetMapping("user/")
-    public ModelAndView getUserSales(ModelMap model, @PathVariable Long id) {
+    @GetMapping("user")
+    public ModelAndView getUserSales(ModelMap model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("sales", repository.findByUserEmail(auth.getName()));
         return new ModelAndView("/sales/userList");
